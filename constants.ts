@@ -7,7 +7,7 @@ export const PROJECTS: Project[] = [
     title: 'Ministry of Culture Saudi Arabia',
     category: 'UI/UX Design, Graphic Design',
     filterCategory: 'graphic',
-    image: 'public/assets/images/projects/saudi-Gvt/tablet_mackup_03.jpg',
+    image: '/assets/images/projects/saudi-Gvt/tablet_mackup_03.jpg',
     description: 'The Year of Handcrafts Event Program Ui/UX Design.',
     tags: ['UI/UX', 'Graphic Design', 'Event'],
     specs: {
@@ -21,8 +21,8 @@ export const PROJECTS: Project[] = [
       result: 'Successfully launched the event program with positive feedback on user experience and visual appeal.'
     },
     gallery: [
-      { type: 'image', url: '/public/assets/images/projects/Saudi Gvt/tablet_mackup_01.jpg' },
-      { type: 'image', url: '/public/assets/images/projects/Saudi Gvt/LED-Screen-Mockup.jpg' },
+      { type: 'image', url: '/assets/images/projects/saudi-Gvt/tablet_mackup_01.jpg' },
+      { type: 'image', url: '/assets/images/projects/saudi-Gvt/LED-Screen-Mockup.jpg' },
       { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/748429223154547.67f40e54aedfb.jpg' },
       { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/678682223154547.67f40e52cf0b7.jpg' },
       { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/44cbd0223154547.67f40e561122a.jpg' },
