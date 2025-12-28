@@ -85,7 +85,7 @@ export const Hero = () => {
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.7, duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                className={`block text-[13vw] md:text-9xl text-transparent bg-clip-text bg-chrome-gradient ${isHovered ? 'liquid-text' : ''}`}
+                className={`block text-[9vw] md:text-9xl text-transparent bg-clip-text bg-chrome-gradient ${isHovered ? 'liquid-text' : ''}`}
             >
                 PARAMBERI
             </motion.span>

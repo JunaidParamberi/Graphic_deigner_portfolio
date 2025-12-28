@@ -21,8 +21,8 @@ export const PROJECTS: Project[] = [
       result: 'Successfully launched the event program with positive feedback on user experience and visual appeal.'
     },
     gallery: [
-      { type: 'image', url: '/assets/images/projects/saudi-Gvt/tablet_mackup_01.jpg' },
-      { type: 'image', url: '/assets/images/projects/saudi-Gvt/LED-Screen-Mockup.jpg' },
+      { type: 'image', url: '/public/assets/images/projects/Saudi Gvt/tablet_mackup_01.jpg' },
+      { type: 'image', url: '/public/assets/images/projects/Saudi Gvt/LED-Screen-Mockup.jpg' },
       { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/748429223154547.67f40e54aedfb.jpg' },
       { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/678682223154547.67f40e52cf0b7.jpg' },
       { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/44cbd0223154547.67f40e561122a.jpg' },
@@ -55,26 +55,32 @@ export const PROJECTS: Project[] = [
     ],
     gridArea: 'md:col-span-4 md:row-span-1'
   },
+  
   {
-    id: 'pink-apple',
-    title: 'Pink Apple Events',
-    category: 'Event Identity',
+    id: '3s-media-solutions',
+    title: '3S Media & Lighting Solutions',
+    category: 'Digital Signage & Architectural Lighting',
     filterCategory: 'graphic',
-    image: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=2070&auto=format&fit=crop',
-    description: 'Comprehensive event collateral and video production for high-profile gatherings.',
-    tags: ['Event', 'Video', 'Social'],
+    image: '/assets/images/projects/three_s/1.png', // Recommended: The skyscraper media façade
+    description: 'A comprehensive digital ecosystem integrating cutting-edge LED technology with architectural artistry for global markets.',
+    tags: ['LED Tech', 'Wayfinding', 'Media Façade'],
     specs: {
-      typography: 'Playfair Display / Inter',
-      colors: ['#E91E63', '#FCE4EC', '#000000'],
-      grid: 'Flexible Masonry'
+      typography: 'Montserrat / Helvetica', // Based on your clean sans-serif choice
+      colors: ['#201b51', '#4d4184', '#407cbf', '#00cfb4', '#e26386', '#ffc600'], // Primary brand palette
+      grid: 'Bento Grid / Case Study'
     },
     narrative: {
-      challenge: 'Deliver rapid-turnaround creative assets for diverse events ranging from corporate galas to weddings, ensuring unique identities for each.',
-      execution: 'Established a "Master Template" system in Adobe Suite that allowed for quick customization while maintaining high design standards.',
-      result: 'Streamlined workflow efficiency by 40% and delivered over 50 successful event branding packages.'
+      challenge: 'Visualizing complex, large-scale digital installations across diverse international environments from retail interiors to urban skyscrapers.',
+      execution: 'Created high-fidelity 3D mockups and social media simulations to demonstrate real-world application, visibility, and brand cohesion.',
+      result: 'Developed a unified visual identity for 3S Media across three continents, showcasing expertise in 3D anamorphic displays and interactive wayfinding.'
     },
-    gridArea: 'md:col-span-4 md:row-span-1'
-  },
+     gallery: [
+       { type: 'image', url: '/assets/images/projects/three_s/1.png' },
+       { type: 'image', url: '/assets/images/projects/three_s/2.png' },
+       { type: 'image', url: '/assets/images/projects/three_s/3.png' },
+    ],
+    gridArea: 'md:col-span-4 md:row-span-1' // Set larger to highlight the high-impact visuals
+},
   {
     id: 'personal-exp',
     title: 'Visual Experiments',
