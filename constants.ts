@@ -6,7 +6,7 @@ export const PROJECTS: Project[] = [
     title: 'Ministry of Culture Saudi Arabia',
     category: 'UI/UX Design, Graphic Design',
     filterCategory: 'graphic',
-    image: '/public/assets/Images/Projects/Saudi Gvt/tablet_mackup_03.jpg',
+    image:  new URL('./Assets/Images/Projects/Saudi Gvt/tablet_mackup_03.jpg', import.meta.url).href,
     description: 'The Year of Handcrafts Event Program Ui/UX Design.',
     tags: ['UI/UX', 'Graphic Design', 'Event'],
     specs: {
