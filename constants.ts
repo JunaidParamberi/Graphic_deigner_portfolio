@@ -1,7 +1,5 @@
 import { Experience, Project } from './types';
 
-import yohimg1 from '@/assets/images/projects/saudi-gvt/tablet_mackup_03.jpg';
-
 
 export const PROJECTS: Project[] = [
   {
@@ -9,41 +7,30 @@ export const PROJECTS: Project[] = [
     title: 'Ministry of Culture Saudi Arabia',
     category: 'UI/UX Design, Graphic Design',
     filterCategory: 'graphic',
-
-    // Imported image (bundled safely)
-    image: yohimg1,
-
+    image: 'public/assets/images/projects/saudi-Gvt/tablet_mackup_03.jpg',
     description: 'The Year of Handcrafts Event Program Ui/UX Design.',
     tags: ['UI/UX', 'Graphic Design', 'Event'],
-
     specs: {
       typography: 'Effra, TheYearofHandicrafts',
-      colors: ['#243c21', '#bcb833', '#ffffff'],
+      colors: ['#243c21', '#bcb833', '#ffff'],
       grid: 'Responsive 12-Col'
     },
-
     narrative: {
-      challenge:
-        'Creating UI/UX designs for event game and activity screens while adhering to strict brand guidelines.',
-      execution:
-        'Collaborated closely with the Ministry of Culture to ensure all designs reflected the cultural significance of handcrafts, while maintaining usability across devices.',
-      result:
-        'Successfully launched the event program with positive feedback on user experience and visual appeal.'
+      challenge: 'Creating UI/UX designs for event game and activity screens while adhering to strict brand guidelines.',
+      execution: 'Collaborated closely with the Ministry of Culture to ensure all designs reflected the cultural significance of handcrafts, while maintaining usability across devices.',
+      result: 'Successfully launched the event program with positive feedback on user experience and visual appeal.'
     },
-
-    // PUBLIC folder images → NO /public
     gallery: [
-      { type: 'image', url: '/assets/images/projects/saudi-gvt/tablet_mackup_01.jpg' },
-      { type: 'image', url: '/assets/images/projects/saudi-gvt/LED-Screen-Mockup.jpg' },
+      { type: 'image', url: '/public/assets/images/projects/Saudi Gvt/tablet_mackup_01.jpg' },
+      { type: 'image', url: '/public/assets/images/projects/Saudi Gvt/LED-Screen-Mockup.jpg' },
       { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/748429223154547.67f40e54aedfb.jpg' },
       { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/678682223154547.67f40e52cf0b7.jpg' },
       { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/44cbd0223154547.67f40e561122a.jpg' },
-      { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/0b0228223154547.67f40e5612156.jpg' }
+      { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/0b0228223154547.67f40e5612156.jpg' },
+      // { type: 'video', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4' }
     ],
-
     gridArea: 'md:col-span-8 md:row-span-2'
   },
-
   {
     id: 'ayursain',
     title: 'Ayursain Logo Creation & Branding',
