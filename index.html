@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Junaid Paramberi | Visual Storyteller</title>
+    <link rel="shortcut icon" href="/Assets/Images/Logo.png" type="image/x-icon">
+    <meta name="description" content="Portfolio of Junaid Paramberi - Graphic Designer & Visual Storyteller" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* Default: Midnight Amethyst & Solar Chrome */
+        --color-midnight: #0B0014;
+        --color-navy: #1A1A2E;
+        --color-ice: #E0E0FF;
+        --color-electric: #00F0FF;
+        --color-violet: #B026FF;
+        --color-violet-dark: #4c1d95;
+      }
+
+      [data-theme='gold'] {
+        /* Obsidian Gold */
+        --color-midnight: #050505;
+        --color-navy: #141414;
+        --color-ice: #F0F0F0;
+        --color-electric: #FFD700; /* Gold */
+        --color-violet: #C0C0C0; /* Silver */
+        --color-violet-dark: #808080;
+      }
+
+      [data-theme='crimson'] {
+        /* Royal Crimson */
+        --color-midnight: #1a0505;
+        --color-navy: #2d0a0a;
+        --color-ice: #ffecec;
+        --color-electric: #ff4d4d; /* Bright Coral */
+        --color-violet: #ff9e9e; /* Soft Pink */
+        --color-violet-dark: #800000;
+      }
+      
+      body {
+        cursor: none;
+        background-color: var(--color-midnight);
+        color: var(--color-ice);
+        overflow-x: hidden;
+        transition: background-color 0.5s ease, color 0.5s ease;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--color-midnight);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--color-navy);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-violet);
+      }
+      
+      .text-glow {
+        text-shadow: 0 0 20px rgba(176, 38, 255, 0.5);
+      }
+      
+      /* Liquid Distortion SVG Filter */
+      .liquid-text {
+        filter: url(#liquid);
+      }
+
+      /* Animated Noise */
+      .animate-noise {
+        animation: noiseAnimation 0.5s steps(5) infinite;
+      }
+
+      @keyframes noiseAnimation {
+        0% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -5%); }
+        20% { transform: translate(-10%, 5%); }
+        30% { transform: translate(5%, -10%); }
+        40% { transform: translate(-5%, 15%); }
+        50% { transform: translate(-10%, 5%); }
+        60% { transform: translate(15%, 0); }
+        70% { transform: translate(0, 10%); }
+        80% { transform: translate(-15%, 0); }
+        90% { transform: translate(10%, 5%); }
+        100% { transform: translate(5%, 0); }
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              midnight: 'var(--color-midnight)',
+              navy: 'var(--color-navy)',
+              ice: 'var(--color-ice)',
+              electric: 'var(--color-electric)',
+              violet: 'var(--color-violet)',
+              'violet-dark': 'var(--color-violet-dark)',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Syne', 'sans-serif'],
+            },
+            backgroundImage: {
+              'chrome-gradient': 'linear-gradient(135deg, var(--color-electric) 0%, var(--color-violet) 100%)',
+              'noise': "url('https://grainy-gradients.vercel.app/noise.svg')",
+            },
+            cursor: {
+              none: 'none',
+            }
+          },
+        },
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "framer-motion": "https://esm.sh/framer-motion@^12.23.26",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="liquid">
+          <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" result="warp" />
+          <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="30" in="SourceGraphic" in2="warp" />
+        </filter>
+        <filter id="noiseFilter">
+           <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+        </filter>
+      </defs>
+    </svg>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
