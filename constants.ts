@@ -1,5 +1,6 @@
 import { Experience, Project } from './types';
 
+
 export const PROJECTS: Project[] = [
   {
     id: 'the-year-of-handcrafts',
