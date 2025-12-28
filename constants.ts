@@ -1,4 +1,5 @@
 import { Experience, Project } from './types';
+import YHCoverImage from './public/assets/images/projects/Saudi Gvt/tablet_mackup_03.jpg';
 
 export const PROJECTS: Project[] = [
   {
@@ -6,7 +7,7 @@ export const PROJECTS: Project[] = [
     title: 'Ministry of Culture Saudi Arabia',
     category: 'UI/UX Design, Graphic Design',
     filterCategory: 'graphic',
-    image:  new URL('/public/assets/images/projects/Saudi Gvt/tablet_mackup_03.jpg', import.meta.url).href,
+    image:  YHCoverImage,
     description: 'The Year of Handcrafts Event Program Ui/UX Design.',
     tags: ['UI/UX', 'Graphic Design', 'Event'],
     specs: {
