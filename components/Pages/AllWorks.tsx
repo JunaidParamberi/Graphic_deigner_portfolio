@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { PROJECTS } from '../../constants';
 import { Project } from '../../types';
 import { Filter, ArrowLeft } from 'lucide-react';
@@ -26,6 +27,10 @@ export const AllWorks: React.FC<AllWorksProps> = ({ onSelectProject, onBack }) =
 
     return (
         <div className="min-h-screen bg-midnight pt-32 pb-20 px-4 md:px-10">
+            <Helmet>
+                <title>All Works | Junaid Paramberi</title>
+                <meta name="description" content="Browse the complete collection of design, motion, and coding projects by Junaid Paramberi." />
+            </Helmet>
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-8">
@@ -41,7 +46,7 @@ export const AllWorks: React.FC<AllWorksProps> = ({ onSelectProject, onBack }) =
                             animate={{ opacity: 1, y: 0 }}
                             className="font-display font-bold text-5xl md:text-7xl text-white"
                         >
-                            Visual <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric to-violet">Lab</span>
+                            All <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric to-violet">Works</span>
                         </motion.h1>
                     </div>
 

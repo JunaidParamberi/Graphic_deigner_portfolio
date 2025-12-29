@@ -75,9 +75,9 @@ export const PROJECTS: Project[] = [
       result: 'Developed a unified visual identity for 3S Media across three continents, showcasing expertise in 3D anamorphic displays and interactive wayfinding.'
     },
      gallery: [
+       { type: 'image', url: '/assets/images/projects/three_s/3.png' },
        { type: 'image', url: '/assets/images/projects/three_s/1.png' },
        { type: 'image', url: '/assets/images/projects/three_s/2.png' },
-       { type: 'image', url: '/assets/images/projects/three_s/3.png' },
     ],
     gridArea: 'md:col-span-4 md:row-span-1' // Set larger to highlight the high-impact visuals
 },
@@ -196,3 +196,49 @@ export const CONTACT = {
   email: "junaidparamberi@gmail.com",
   location: "Abu Dhabi - UAE"
 };
+
+
+export const CLIENTS = [
+  { 
+    id: 'adnoc', 
+    name: "ADNOC HQ", 
+    role: "Brand Identity", 
+    year: "2023",
+    description: "Corporate wayfinding & visual systems."
+  },
+  { 
+    id: 'vogue', 
+    name: "Vogue Arabia", 
+    role: "Editorial", 
+    year: "2022",
+    description: "High-fashion photography assistance."
+  },
+  { 
+    id: 'gulf', 
+    name: "Gulf Vaartha", 
+    role: "Broadcast Design", 
+    year: "2019",
+    description: "On-air graphics package overhaul."
+  },
+  { 
+    id: '35lighting', 
+    name: "35 Lighting", 
+    role: "Visual Direction", 
+    year: "2023",
+    description: "Architectural lighting visualization."
+  },
+  { 
+    id: 'pinkapple', 
+    name: "Pink Apple", 
+    role: "Event Branding", 
+    year: "2020",
+    description: "Large-scale event collateral systems."
+  },
+  { 
+    id: 'nexus', 
+    name: "Nexus Trade", 
+    role: "UI Engineering", 
+    year: "2021",
+    description: "High-frequency trading dashboard."
+  }
+];

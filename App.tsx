@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { CustomCursor } from './components/Layout/CustomCursor';
 import { Navigation } from './components/Layout/Navigation';
 import { Hero } from './components/Sections/Hero';
@@ -12,19 +13,12 @@ import { ScrollProgress } from './components/UI/ScrollProgress';
 import { AllWorks } from './components/Pages/AllWorks';
 import { Project } from './types';
 import { PROJECTS } from './constants';
+import { Clients } from './components/Sections/Clients';
 
 function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [view, setView] = useState<'home' | 'all-works'>('home');
   const [isLoading, setIsLoading] = useState(true);
-
-  // Prevent browser from restoring scroll position automatically
-  useEffect(() => {
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-    window.scrollTo(0, 0);
-  }, []);
 
   // Handle URL Hash changes
   useEffect(() => {
@@ -70,31 +64,21 @@ function App() {
   const handleBackToHome = () => {
       window.location.hash = '';
       setView('home');
-      setTimeout(() => window.scrollTo(0, 0), 10);
-  };
-
-  const handlePreloaderComplete = () => {
-    setIsLoading(false);
-    
-    // If on home view and not viewing a project, force start at Hero
-    // avoiding the browser jumping to #works or other sections
-    if (view === 'home' && !selectedProject) {
-        const hash = window.location.hash;
-        // Clean up section hashes from URL to prevent jump
-        if (['#works', '#journey', '#contact', '#about'].includes(hash)) {
-            window.history.replaceState(null, '', ' ');
-        }
-        // Force scroll to top
-        window.scrollTo(0, 0);
-    }
   };
 
   return (
     <div className="bg-midnight min-h-screen text-white selection:bg-electric selection:text-black">
       <CustomCursor />
       
+      {/* Default SEO for Home */}
+      <Helmet>
+        <title>Junaid Paramberi | Creative Technologist & Visual Storyteller</title>
+        <meta name="description" content="Bridging the gap between raw data and luxury visual storytelling through graphic design, motion, and code." />
+        <link rel="canonical" href="https://junaidparamberi.com/" />
+      </Helmet>
+
       <AnimatePresence mode="wait">
-        {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
+        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
 
       {!isLoading && (
@@ -115,6 +99,11 @@ function App() {
                         
                         {/* Works/Portfolio Section */}
                         <Works onSelectProject={handleSelectProject} />
+
+
+                        {/* Clients/Collaborations Section */}
+                        <Clients />
+                        
                         
                         {/* Contact Section */}
                         <Contact />
