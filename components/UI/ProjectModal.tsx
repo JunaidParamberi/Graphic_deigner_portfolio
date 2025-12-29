@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { X, Cpu, Palette, Layout, Images, Maximize2, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, Cpu, Palette, Layout, Images, Maximize2, Zap, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import { Project } from '../../types';
 
 interface ProjectModalProps {
@@ -198,6 +198,20 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                                 <p className="text-white text-xl md:text-2xl font-light leading-relaxed">
                                     {project.description}
                                 </p>
+                                
+                                {project.link && (
+                                    <div className="mt-8">
+                                        <a 
+                                            href={project.link} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="group inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-full hover:bg-electric hover:text-midnight hover:border-electric transition-all duration-300"
+                                        >
+                                            <span className="font-display font-bold text-sm uppercase tracking-wider">Visit Live Project</span>
+                                            <ArrowUpRight size={16} className="group-hover:rotate-45 transition-transform" />
+                                        </a>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="grid grid-cols-2 gap-8">

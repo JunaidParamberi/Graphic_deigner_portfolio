@@ -12,11 +12,11 @@ interface AllWorksProps {
 
 export const AllWorks: React.FC<AllWorksProps> = ({ onSelectProject, onBack }) => {
     const categories = [
-        { id: 'all', label: 'All Projects' },
-        { id: 'coding', label: 'Coding Projects' },
-        { id: 'graphic', label: 'Graphic Designing' },
-        { id: 'motion', label: 'Motion' },
-        { id: 'photo-video', label: 'Photo & Video' },
+        { id: 'all', label: 'Master Archive' },
+        { id: 'coding', label: 'Creative Engineering' },
+        { id: 'graphic', label: 'Graphic Design' },
+        { id: 'motion', label: 'Motion Graphics' },
+        { id: 'photo-video', label: 'Lens Media' },
     ];
 
     const [filter, setFilter] = useState('all');
@@ -24,6 +24,12 @@ export const AllWorks: React.FC<AllWorksProps> = ({ onSelectProject, onBack }) =
     const filteredProjects = filter === 'all' 
         ? PROJECTS 
         : PROJECTS.filter(p => p.filterCategory === filter);
+
+    // Helper to get professional label
+    const getCategoryLabel = (filterCat: string) => {
+        const cat = categories.find(c => c.id === filterCat);
+        return cat ? cat.label : filterCat;
+    };
 
     return (
         <div className="min-h-screen bg-midnight pt-32 pb-20 px-4 md:px-10">
@@ -95,7 +101,7 @@ export const AllWorks: React.FC<AllWorksProps> = ({ onSelectProject, onBack }) =
                                     
                                     <div className="absolute top-4 right-4 bg-midnight/80 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
                                         <span className="text-[10px] text-electric uppercase tracking-widest">
-                                            {project.category}
+                                            {getCategoryLabel(project.filterCategory)}
                                         </span>
                                     </div>
                                 </div>

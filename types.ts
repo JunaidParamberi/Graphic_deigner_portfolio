@@ -3,8 +3,10 @@ export interface Project {
   title: string;
   category: string; // Display category
   filterCategory: 'coding' | 'graphic' | 'motion' | 'photo-video'; // For filtering
+  featured?: boolean;
   image: string;
   description: string;
+  link?: string;
   tags: string[];
   specs: {
     typography: string;

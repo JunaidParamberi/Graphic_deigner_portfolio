@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
 import { PROJECTS } from '../../constants';
 import { Project } from '../../types';
-import { ArrowUpRight, ArrowRight, Disc } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Disc, Scan } from 'lucide-react';
 import { Magnetic } from '../UI/Magnetic';
 
 interface WorksProps {
@@ -11,6 +11,13 @@ interface WorksProps {
 
 const ProjectCard = ({ project, onSelect, className, index }: { project: Project, onSelect: (p: Project) => void, className?: string, index: number }) => {
     
+    const categoryLabels: Record<string, string> = {
+        'coding': 'Creative Engineering',
+        'graphic': 'Graphic Design',
+        'motion': 'Motion Graphics',
+        'photo-video': 'Lens Media'
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -18,7 +25,7 @@ const ProjectCard = ({ project, onSelect, className, index }: { project: Project
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.7, delay: index * 0.1 }}
             onClick={() => onSelect(project)}
-            className={`group relative h-full min-h-[500px] w-full bg-navy cursor-none overflow-hidden rounded-2xl border border-white/5 ${className}`}
+            className={`group project-card relative h-full min-h-[500px] w-full bg-navy cursor-none overflow-hidden rounded-2xl border border-white/5 ${className}`}
         >
             {/* 1. Image Layer with RGB Shift Effect on Hover */}
             <div className="absolute inset-0 overflow-hidden">
@@ -33,6 +40,17 @@ const ProjectCard = ({ project, onSelect, className, index }: { project: Project
                     />
                 </motion.div>
 
+                {/* Laser Scan Line Effect */}
+                <div className="absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <motion.div 
+                        className="w-full h-[20%] bg-gradient-to-b from-transparent via-electric/30 to-transparent"
+                        initial={{ top: '-20%' }}
+                        animate={{ top: '120%' }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                    />
+                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+                </div>
+
                 {/* Red Channel - Shifts Left */}
                 <div 
                     className="absolute inset-0 z-0 opacity-0 group-hover:opacity-60 transition-opacity duration-300 mix-blend-screen translate-x-0 group-hover:-translate-x-2"
@@ -44,9 +62,6 @@ const ProjectCard = ({ project, onSelect, className, index }: { project: Project
                     className="absolute inset-0 z-0 opacity-0 group-hover:opacity-60 transition-opacity duration-300 mix-blend-screen translate-x-0 group-hover:translate-x-2"
                     style={{ backgroundImage: `url(${project.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                 />
-
-                {/* Scanline Overlay */}
-                <div className="absolute inset-0 z-20 bg-[linear-gradient(rgba(18,16,19,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
 
             {/* 2. Gradient Overlay for Text Readability */}
@@ -59,7 +74,7 @@ const ProjectCard = ({ project, onSelect, className, index }: { project: Project
                 <div className="flex justify-between items-start">
                     <div className="flex items-center gap-3">
                          <span className="font-mono text-[10px] text-electric uppercase tracking-widest border border-electric/20 bg-electric/5 px-2 py-1 rounded backdrop-blur-md">
-                            {project.filterCategory}
+                            {categoryLabels[project.filterCategory] || project.filterCategory}
                          </span>
                     </div>
                     
@@ -96,6 +111,10 @@ const ProjectCard = ({ project, onSelect, className, index }: { project: Project
 
             {/* 4. Hover Border Glow */}
             <div className="absolute inset-0 z-50 border-2 border-electric opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none mix-blend-overlay" />
+            
+            {/* Corner Markers */}
+            <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-electric opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-50" />
+            <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-electric opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-50" />
         </motion.div>
     );
 };
@@ -147,7 +166,7 @@ export const Works: React.FC<WorksProps> = ({ onSelectProject }) => {
 
            {/* The Grid */}
            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-              {PROJECTS.slice(0, 5).map((project, index) => (
+              {PROJECTS.filter(p => p.featured).slice(0, 6).map((project, index) => (
                 <div key={project.id} className={`${project.gridArea || 'md:col-span-6'}`}>
                     <ProjectCard 
                         project={project}

@@ -5,49 +5,48 @@ export const PROJECTS: Project[] = [
   {
     id: 'the-year-of-handcrafts',
     title: 'Ministry of Culture Saudi Arabia',
-    category: 'UI/UX Design, Graphic Design',
+    category: 'Social Media Campaign',
     filterCategory: 'graphic',
+    featured: true,
     image: '/assets/images/projects/saudi-Gvt/tablet_mackup_03.jpg',
-    description: 'The Year of Handcrafts Event Program Ui/UX Design.',
-    tags: ['UI/UX', 'Graphic Design', 'Event'],
+    description: 'Social media promotional campaign for The Year of Handcrafts Event.',
+    tags: ['Social Media', 'Graphic Design', 'Campaign'],
     specs: {
       typography: 'Effra, TheYearofHandicrafts',
       colors: ['#243c21', '#bcb833', '#ffff'],
-      grid: 'Responsive 12-Col'
+      grid: 'Multi-format (1:1, 9:16, 16:9)'
     },
     narrative: {
-      challenge: 'Creating UI/UX designs for event game and activity screens while adhering to strict brand guidelines.',
-      execution: 'Collaborated closely with the Ministry of Culture to ensure all designs reflected the cultural significance of handcrafts, while maintaining usability across devices.',
-      result: 'Successfully launched the event program with positive feedback on user experience and visual appeal.'
+      challenge: 'Creating compelling social media posters that promote cultural handcrafts across multiple platforms with consistent branding.',
+      execution: 'Designed a series of promotional posters optimized for Instagram, Facebook, and TikTok, featuring vibrant visuals and clear calls-to-action.',
+      result: 'Campaign reached 500K+ impressions with 25% engagement rate and successful event attendance.'
     },
     gallery: [
       { type: 'image', url: '/assets/images/projects/saudi-Gvt/tablet_mackup_01.jpg' },
       { type: 'image', url: '/assets/images/projects/saudi-Gvt/LED-Screen-Mockup.jpg' },
       { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/748429223154547.67f40e54aedfb.jpg' },
       { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/678682223154547.67f40e52cf0b7.jpg' },
-      { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/44cbd0223154547.67f40e561122a.jpg' },
-      { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/0b0228223154547.67f40e5612156.jpg' },
-      // { type: 'video', url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4' }
     ],
     gridArea: 'md:col-span-8 md:row-span-2'
   },
   {
     id: 'ayursain',
-    title: 'Ayursain Logo Creation & Branding',
-    category: 'Brand Identity',
+    title: 'Ayursain Brand Promotion',
+    category: 'Social Media Campaign',
     filterCategory: 'graphic',
+    featured: true,
     image: 'https://mir-s3-cdn-cf.behance.net/project_modules/2800_webp/1803d3235472491.68d7c67279531.jpg',
-    description: 'Broadcast graphics and event branding for a leading media house.',
-    tags: ['Logo Design', 'Branding', 'Identity'],
+    description: 'Social media promotional campaign launching Ayursain brand identity.',
+    tags: ['Social Media', 'Branding', 'Promotion'],
     specs: {
       typography: 'Pacifico / Inter',
       colors: ['#23a9b9', '#558135', '#ffff'],
-      grid: 'Modular 6-Col'
+      grid: 'Story & Feed Formats'
     },
     narrative: {
-      challenge: 'Developed a cohesive visual system including logo design, color palette, and brand guidelines.',
-      execution: 'Created versatile logo variations and applied them across digital and print media to ensure brand consistency.',
-      result: 'A strong brand identity that enhanced market presence and audience recognition.'
+      challenge: 'Building brand awareness through cohesive social media assets across Instagram, Facebook, and Stories.',
+      execution: 'Created a series of promotional posters with logo variations, product highlights, and lifestyle imagery optimized for each platform.',
+      result: 'Achieved 10K+ followers in first month with 30% click-through rate to website.'
     },
     gallery: [
        { type: 'image', url: 'https://mir-s3-cdn-cf.behance.net/project_modules/2800_webp/1803d3235472491.68d7c67279531.jpg' },
@@ -58,23 +57,27 @@ export const PROJECTS: Project[] = [
   
   {
     id: '3s-media-solutions',
-    title: '3S Media & Lighting Solutions',
-    category: 'Digital Signage & Architectural Lighting',
+    title: '3S Media Solutions Campaign',
+    category: 'Social Media Promotion',
     filterCategory: 'graphic',
-    image: '/assets/images/projects/three_s/1.png', // Recommended: The skyscraper media façade
-    description: 'A comprehensive digital ecosystem integrating cutting-edge LED technology with architectural artistry for global markets.',
-    tags: ['LED Tech', 'Wayfinding', 'Media Façade'],
+    featured: true,
+    image: '/assets/images/projects/three_s/1.png',
+    description: 'Social media campaign showcasing 3S Media LED technology and architectural solutions.',
+    tags: ['Social Media', 'LED Tech', 'Campaign'],
     specs: {
-      typography: 'Montserrat / Helvetica', // Based on your clean sans-serif choice
-      colors: ['#201b51', '#4d4184', '#407cbf', '#00cfb4', '#e26386', '#ffc600'], // Primary brand palette
-      grid: 'Bento Grid / Case Study'
+      typography: 'Montserrat / Helvetica',
+      colors: ['#201b51', '#4d4184', '#407cbf', '#00cfb4', '#e26386', '#ffc600'],
+      grid: 'Multi-format Posts & Reels'
     },
     narrative: {
-      challenge: 'Visualizing complex, large-scale digital installations across diverse international environments from retail interiors to urban skyscrapers.',
-      execution: 'Created high-fidelity 3D mockups and social media simulations to demonstrate real-world application, visibility, and brand cohesion.',
-      result: 'Developed a unified visual identity for 3S Media across three continents, showcasing expertise in 3D anamorphic displays and interactive wayfinding.'
+      challenge: 'Promoting complex LED installation services through visually engaging social media content.',
+      execution: 'Developed carousel posts, Reels, and Stories showcasing before/after installations with motion graphics.',
+      result: 'Generated 50+ qualified leads through social engagement and 15K+ video views.'
     },
      gallery: [
+       { type: 'image', url: '/assets/images/projects/three_s/3.png' },
+       { type: 'image', url: '/assets/images/projects/three_s/1.png' },
+       { type: 'image', url: '/assets/images/projects/three_s/2.png' },
        { type: 'image', url: '/assets/images/projects/three_s/3.png' },
        { type: 'image', url: '/assets/images/projects/three_s/1.png' },
        { type: 'image', url: '/assets/images/projects/three_s/2.png' },
@@ -82,70 +85,125 @@ export const PROJECTS: Project[] = [
     gridArea: 'md:col-span-4 md:row-span-1' // Set larger to highlight the high-impact visuals
 },
   {
-    id: 'personal-exp',
-    title: 'Visual Experiments',
-    category: 'Art Direction',
-    filterCategory: 'motion',
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
-    description: 'Abstract 3D compositions and lighting studies.',
-    tags: ['3D', 'Abstract', 'Texture'],
+    id: 'boehringeringelheim',
+    title: 'Boehringer Ingelheim',
+    category: 'website & Motion Design',
+    filterCategory: 'coding',
+    featured: true,
+    link: 'https://boehringeringelheim-interactive.netlify.app/',
+    image: '/assets/images/projects/bi/cover-image-bi.png',
+    description: "Boehringer Ingelheim | Interactive Presentation for Web and PC",
+    tags: ['React', 'Electron', 'UI/UX'],
     specs: {
-      typography: 'Experimental',
-      colors: ['#B026FF', '#00F0FF', '#0B0014'],
-      grid: 'No-Grid'
+      typography: 'BoehringerForwardHead',
+      colors: ['#08312A', '#00E47C', '#E5E3DE', '#F6F5F3'],
+      grid: 'Responsive 12-Col'
     },
     narrative: {
-      challenge: 'Pushing the boundaries of light and shadow in digital composition.',
-      execution: 'Utilizing DaVinci Resolve and Photoshop to manipulate light sources and texture blending modes.',
-      result: 'A collection of award-winning abstract posters and motion snippets.'
+      challenge: 'Designing an interactive platform that effectively communicates complex pharmaceutical information to diverse stakeholders.',
+      execution: 'Developed a user-friendly interface using React and Electron, incorporating motion design principles to enhance engagement and information retention.',
+      result: 'The platform received positive feedback for its intuitive navigation and dynamic content presentation, improving user interaction and knowledge dissemination.'
     },
+    gallery: [
+      { type: 'image', url: '/assets/images/projects/bi/cover-image-bi.png' },
+      { type: 'image', url: '/assets/images/projects/bi/bi01.png' },
+      { type: 'image', url: '/assets/images/projects/bi/bi02.png' },
+      { type: 'image', url: '/assets/images/projects/bi/bi03.png' },
+      { type: 'image', url: '/assets/images/projects/bi/bi04.png' },
+      { type: 'image', url: '/assets/images/projects/bi/bi05.png' },
+      { type: 'image', url: '/assets/images/projects/bi/bi06.png' },
+
+     
+    ],
     gridArea: 'md:col-span-12 md:row-span-1'
   },
   {
-    id: 'crypto-dashboard',
-    title: 'Nexus Trade',
-    category: 'UI/UX Engineering',
-    filterCategory: 'coding',
-    image: 'https://images.unsplash.com/photo-1642104704074-907c0698cbd9?q=80&w=2832&auto=format&fit=crop',
-    description: 'Real-time cryptocurrency trading interface built with React and WebGL data visualization.',
-    tags: ['React', 'TypeScript', 'WebGL'],
+    id: 'kat-group',
+    title: 'Kat Group Brand Identity & Logo Creation',
+    category: 'Branding & Logo Design',
+    filterCategory: 'graphic',
+    featured: true,
+    image: '/assets/images/projects/KAT/KAT-BRANDING.jpg',
+    description: 'Brand identity and logo design for Kat Group, a multifaceted business conglomerate.',
+    tags: ['Branding', 'Logo Design', 'Identity'],
     specs: {
-      typography: 'JetBrains Mono / Inter',
-      colors: ['#111111', '#00FF9D', '#FF0055'],
+      typography: 'Montserrat / Roboto',
+      colors: ['#101230', '#c3902c', '#efaf1d', '#f6ca37', '#ffffff'],
       grid: 'Dashboard 12-Col'
     },
     narrative: {
-      challenge: 'Visualizing high-frequency data streams without performance lag in a browser environment.',
-      execution: 'Implemented a custom WebGL renderer for charts and used WebSockets for live data updates. optimized React re-renders.',
-      result: 'A sub-100ms latency dashboard used by over 500 active traders.'
+      challenge: 'Creating a versatile brand identity that reflects the diverse business interests of Kat Group while maintaining a cohesive visual language.',
+      execution: 'Designed a modern logo and brand guidelines, including color palettes and typography, to ensure consistency across all platforms.',
+      result: 'The new brand identity successfully positioned Kat Group as a professional and trustworthy conglomerate, leading to increased brand recognition and client engagement.'
     },
+
+    gallery: [
+      { type: 'image', url: '/assets/images/projects/KAT/Letterpress-Logo-Mockup.jpg' },
+      { type: 'image', url: '/assets/images/projects/KAT/1.jpg' },
+      { type: 'image', url: '/assets/images/projects/KAT/KAT-BRANDING.jpg' },
+      { type: 'image', url: '/assets/images/projects/KAT/KAT-LOGO-BRAND-SCHEME.jpg' },
+    ],
     gridArea: 'md:col-span-6 md:row-span-1'
   },
   {
-    id: 'fashion-shoot',
-    title: 'Vogue Arabia Editorial',
-    category: 'Photography',
-    filterCategory: 'photo-video',
-    image: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop',
-    description: 'High-fashion editorial shoot focusing on traditional textiles in modern settings.',
-    tags: ['Photography', 'Editorial', 'Lighting'],
+    id: '3s_creative_brochure',
+    title: '3S Creative Solutions Brochure',
+    category: 'Print & Digital Brochure Design',
+    filterCategory: 'graphic',
+    image: '/assets/images/projects/3s_creative_brochure/1.jpg',
+    description: 'Print and digital brochure design for 3S Creative Solutions, highlighting their services and portfolio.',
+    tags: ['Brochure Design', 'Print Design', 'Digital Design'],
     specs: {
-      typography: 'Didot',
-      colors: ['#C0C0C0', '#000000', '#FF0000'],
-      grid: 'Golden Ratio'
+      typography: 'montserrat / roboto',
+      colors: ['#482671', '#97258d', '#eb2b50', '#ffffff'],
+      grid: 'A4 Print & Digital'
     },
     narrative: {
-      challenge: 'Capturing the texture of intricate fabrics under harsh desert sunlight.',
-      execution: 'Used diffusers and reflectors to soften natural light, combined with high-speed sync flash for drama.',
-      result: 'Featured as the cover story for the September issue.'
+      challenge: 'Designing a visually appealing brochure that effectively communicates 3S Creative Solutions\' offerings to potential clients.',
+      execution: 'Created a cohesive layout with striking visuals and clear typography, optimized for both print and digital formats.',
+      result: 'The brochure received positive feedback for its professional design and clarity, contributing to new client acquisitions and increased brand visibility.'
     },
+    gallery: [
+      { type: 'image', url: '/assets/images/projects/3s_creative_brochure/1.jpg' },
+      { type: 'image', url: '/assets/images/projects/3s_creative_brochure/2.jpg' },
+      { type: 'image', url: '/assets/images/projects/3s_creative_brochure/3.jpg' },
+      { type: 'image', url: '/assets/images/projects/3s_creative_brochure/4.jpg' },
+    ],
     gridArea: 'md:col-span-6 md:row-span-1'
-  }
+  },
+  {
+    id: 'verifyman-app-branding-logo',
+    title: 'Verifyman App Branding',
+    category: 'Branding & Logo Design',
+    filterCategory: 'graphic',
+    featured: true,
+    image: '/assets/images/projects/verifyman/02_Tablet-Mockup.jpg',
+    description: 'Brand identity and logo design for Verifyman, a cutting-edge verification solutions provider.',
+    tags: ['Branding', 'Logo Design', 'Identity'],
+    specs: {
+      typography: 'poppins / open sans',
+      colors: ['#3ab54a', '#3f423f', , '#ffffff'],
+      grid: 'Dashboard 12-Col'
+    },
+    narrative: {
+      challenge: 'Creating a modern and trustworthy brand identity for Verifyman that resonates with tech-savvy users and reflects the company\'s innovative solutions.',
+      execution: 'Developed a cohesive brand system with a distinctive logo and visual elements that communicate professionalism and innovation',
+      result: 'The new brand identity enhanced Verifyman\'s market presence, leading to increased user engagement and positive client feedback.'
+    },
+    gallery: [
+      { type: 'image', url: '/assets/images/projects/verifyman/02_Tablet-Mockup.jpg' },
+      { type: 'image', url: '/assets/images/projects/verifyman/High-Quality-Business-Card-Mockup-2.jpg' },
+      { type: 'image', url: '/assets/images/projects/verifyman/Logo-branding.png' },
+      { type: 'image', url: '/assets/images/projects/verifyman/Logo-branding2.png' },
+      { type: 'image', url: '/assets/images/projects/verifyman/Logo-branding3.png' },
+    ],
+    gridArea: 'md:col-span-6 md:row-span-1'
+  },
 ];
 
 export const EXPERIENCE: Experience[] = [
   {
-    id: '35lighting',
+    id: '3slighting',
     role: 'Graphic Designer & Photographer',
     company: '35 Lighting Solutions LLC',
     period: '2023 - Present',
