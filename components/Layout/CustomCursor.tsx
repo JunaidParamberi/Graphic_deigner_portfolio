@@ -38,7 +38,7 @@ export const CustomCursor = () => {
       } else {
         setVariant('default');
       }
-    };
+    };  
 
     window.addEventListener('mousemove', moveCursor);
     window.addEventListener('mouseover', handleHoverStart);
