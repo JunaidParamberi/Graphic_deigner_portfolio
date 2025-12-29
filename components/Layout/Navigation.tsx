@@ -252,7 +252,7 @@ export const Navigation = () => {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1 }}
-            className="fixed bottom-8 right-8 z-50 md:hidden pointer-events-auto"
+            className="fixed top-5 right-8   z-50 md:hidden pointer-events-auto"
         >
             <button 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

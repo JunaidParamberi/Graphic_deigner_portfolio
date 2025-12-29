@@ -28,7 +28,12 @@ const MobileMissionControl = () => (
         </div>
 
         <p className="text-white/80 text-sm leading-relaxed font-light mb-6">
-            Bridging the gap between raw data and luxury visual storytelling. A timeline of evolution from visual arts to creative engineering.
+            A creative Graphic Designer and Visual Storyteller with 6+
+years of experience across branding, photography, video
+editing, and motion graphics. Experienced in delivering
+end-to-end visual solutions, from concept and on-site
+photography to post-production and final delivery for
+digital and print platforms.
         </p>
 
         <div>
