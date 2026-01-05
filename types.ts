@@ -1,3 +1,4 @@
+
 export interface Project {
   id: string;
   title: string;
@@ -32,6 +33,24 @@ export interface Experience {
   period: string;
   description: string;
   type: 'work' | 'education';
+}
+
+export interface Overview {
+  title: string;
+  subtitle: string;
+  description: string;
+  stats: {
+    label: string;
+    value: string;
+  }[];
+}
+
+export interface Client {
+  id: string;
+  name: string;
+  role: string;
+  year: string;
+  description: string;
 }
 
 export interface CursorState {
