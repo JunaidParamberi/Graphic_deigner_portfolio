@@ -8,11 +8,12 @@ import { Hero } from './components/Sections/Hero';
 import { Journey } from './components/Sections/Journey';
 import { Clients } from './components/Sections/Clients';
 import { Works } from './components/Sections/Works';
+import { DesignGame } from './components/Sections/DesignGame';
 import { Contact } from './components/Sections/Contact';
 import { ProjectModal } from './components/UI/ProjectModal';
 import { Preloader } from './components/UI/Preloader';
 import { ScrollProgress } from './components/UI/ScrollProgress';
-
+import { ParticleBackground } from './components/UI/ParticleBackground';
 import { AllWorks } from './components/Pages/AllWorks';
 import { Project, Experience, Client, Overview } from './types';
 import { db, fetchCollection, fetchDocument } from './firebase';
@@ -37,7 +38,7 @@ function App() {
           fetchCollection('projects'),
           fetchCollection('experience'),
           fetchCollection('clients'),
-          fetchDocument('settings', 'profile'), // Points to settings > profile as requested
+          fetchDocument('settings', 'profile'), 
           fetchDocument('settings', 'skills')
         ]);
 
@@ -47,7 +48,6 @@ function App() {
         setOverview(profileData as Overview);
         setSkills((skillsData as any)?.list || []);
         
-        // Brief delay to ensure preloader feels smooth
         setTimeout(() => setIsLoading(false), 1000);
       } catch (error) {
         console.error("Error fetching Firebase data:", error);
@@ -58,7 +58,6 @@ function App() {
     loadData();
   }, []);
 
-  // Handle URL Hash changes
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
@@ -114,7 +113,7 @@ function App() {
   return (
     <div className="bg-midnight min-h-screen text-white selection:bg-electric selection:text-black">
       <CustomCursor />
-
+      <ParticleBackground />
       
       <Helmet>
         <title>Junaid Paramberi | Creative Technologist & Visual Storyteller</title>
@@ -142,6 +141,7 @@ function App() {
                           skills={skills} 
                           overview={overview} 
                         />
+                        <DesignGame />
                         <Clients clients={clients} />
                         <Works projects={projects} onSelectProject={handleSelectProject} />
                         <Contact />

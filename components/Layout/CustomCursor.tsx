@@ -1,30 +1,28 @@
+
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 
 export const CustomCursor = () => {
+  const Motion = motion as any;
   const [variant, setVariant] = useState('default');
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  // Smooth spring physics for the main cursor
-  const springConfig = { damping: 20, stiffness: 400, mass: 0.5 };
+  const springConfig = { damping: 28, stiffness: 450, mass: 0.6 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
-  // Trail logic
   const [trail, setTrail] = useState<{x: number, y: number, id: number}[]>([]);
   const requestRef = useRef<number>(0);
   const trailRef = useRef<{x: number, y: number}[]>([]);
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
-      // Update main cursor motion values
       mouseX.set(e.clientX - 16);
       mouseY.set(e.clientY - 16);
 
-      // Add point to trail ref for the animation loop
       trailRef.current.push({ x: e.clientX, y: e.clientY });
-      if (trailRef.current.length > 20) {
+      if (trailRef.current.length > 15) {
         trailRef.current.shift();
       }
     };
@@ -38,7 +36,7 @@ export const CustomCursor = () => {
       } else {
         setVariant('default');
       }
-    };  
+    };
 
     window.addEventListener('mousemove', moveCursor);
     window.addEventListener('mouseover', handleHoverStart);
@@ -50,21 +48,16 @@ export const CustomCursor = () => {
     };
   }, [mouseX, mouseY]);
 
-  // Trail Animation Loop
   useEffect(() => {
     let idCounter = 0;
     
     const loop = () => {
        setTrail(prev => {
-          // Add the latest point from the ref if it moved
           const lastPoint = trailRef.current[trailRef.current.length - 1];
           if (!lastPoint) return prev;
 
-          // Only add a new trail dot if we moved enough (optimization)
           const newTrail = [...prev, { ...lastPoint, id: idCounter++ }];
-          
-          // Keep trail short
-          if (newTrail.length > 12) newTrail.shift();
+          if (newTrail.length > 8) newTrail.shift();
           return newTrail;
        });
        requestRef.current = requestAnimationFrame(loop);
@@ -89,10 +82,10 @@ export const CustomCursor = () => {
       mixBlendMode: "difference" as any,
     },
     project: {
-      height: 80,
-      width: 80,
+      height: 110,
+      width: 110,
       backgroundColor: "#B026FF",
-      opacity: 0.8,
+      opacity: 0.95,
       border: "none",
       mixBlendMode: "normal" as any,
     }
@@ -100,36 +93,43 @@ export const CustomCursor = () => {
 
   return (
     <>
-        {/* Main Cursor */}
-        <motion.div
-            className="hidden md:flex fixed top-0 left-0 z-[9999] pointer-events-none rounded-full items-center justify-center backdrop-blur-sm"
+        <Motion.div
+            className="hidden md:flex fixed top-0 left-0 z-[9999] pointer-events-none rounded-full items-center justify-center backdrop-blur-md"
             style={{ x: cursorX, y: cursorY }}
             variants={variants}
             animate={variant}
-            transition={{ type: "spring", stiffness: 500, damping: 28 }}
+            transition={{ type: "spring", stiffness: 400, damping: 30 }}
         >
-            {variant === 'project' && (
-                <span className="text-white text-[10px] font-bold uppercase tracking-widest">View</span>
-            )}
+            <AnimatePresence mode="wait">
+                {variant === 'project' && (
+                    <Motion.span 
+                        initial={{ opacity: 0, y: 8, scale: 0.8 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -8, scale: 0.8 }}
+                        transition={{ duration: 0.25, ease: "easeOut" }}
+                        className="text-white text-[11px] font-display font-black uppercase tracking-[0.3em]"
+                    >
+                        View
+                    </Motion.span>
+                )}
+            </AnimatePresence>
             
-            {/* Inner Core Dot */}
-            <div className="absolute w-1 h-1 bg-electric rounded-full" />
-        </motion.div>
+            <div className="absolute w-1.5 h-1.5 bg-electric rounded-full shadow-[0_0_10px_#00F0FF]" />
+        </Motion.div>
 
-        {/* Quantum Trail */}
-        {trail.map((point, index) => (
-            <motion.div
+        {trail.map((point) => (
+            <Motion.div
                 key={point.id}
                 className="hidden md:block fixed top-0 left-0 z-[9998] pointer-events-none rounded-full bg-electric mix-blend-screen"
                 style={{ 
                     left: point.x, 
                     top: point.y,
-                    width: 4, 
-                    height: 4 
+                    width: 2.5, 
+                    height: 2.5 
                 }}
-                initial={{ opacity: 0.8, scale: 1 }}
+                initial={{ opacity: 0.5, scale: 1 }}
                 animate={{ opacity: 0, scale: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.4 }}
             />
         ))}
     </>
