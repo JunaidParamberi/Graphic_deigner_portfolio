@@ -1,9 +1,10 @@
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '../../types';
 import { ArrowUpRight, ArrowRight, Disc } from 'lucide-react';
 import { Magnetic } from '../UI/Magnetic';
+import { Skeleton } from '../UI/Skeleton';
 
 interface WorksProps {
   projects: Project[];
@@ -11,8 +12,9 @@ interface WorksProps {
 }
 
 const ProjectCard = ({ project, onSelect, className, index }: { project: Project, onSelect: (p: Project) => void, className?: string, index: number }) => {
-    // Fix: Cast motion to any to bypass environment-specific type issues
     const Motion = motion as any;
+    const [imageLoaded, setImageLoaded] = useState(false);
+    
     const categoryLabels: Record<string, string> = {
         'coding': 'Creative Engineering',
         'graphic': 'Visual Systems',
@@ -31,8 +33,18 @@ const ProjectCard = ({ project, onSelect, className, index }: { project: Project
             className={`group project-card relative h-full min-h-[450px] md:min-h-[500px] w-full bg-navy cursor-none overflow-hidden rounded-2xl border border-white/5 ${className}`}
         >
             <div className="absolute inset-0 overflow-hidden">
-                <Motion.div className="absolute inset-0 z-10 transition-transform duration-700 group-hover:scale-105">
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-60 grayscale-[0.5] group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" />
+                {!imageLoaded && (
+                    <Skeleton className="absolute inset-0 z-10 rounded-none" />
+                )}
+                <Motion.div 
+                    className={`absolute inset-0 z-10 transition-all duration-1000 group-hover:scale-105 ${imageLoaded ? 'opacity-60 grayscale-[0.5] group-hover:grayscale-0 group-hover:opacity-100' : 'opacity-0'}`}
+                >
+                    <img 
+                        src={project.image} 
+                        alt={project.title} 
+                        className="w-full h-full object-cover" 
+                        onLoad={() => setImageLoaded(true)}
+                    />
                 </Motion.div>
                 
                 {/* Scanline Effect */}
@@ -83,7 +95,6 @@ const ProjectCard = ({ project, onSelect, className, index }: { project: Project
 };
 
 export const Works: React.FC<WorksProps> = ({ projects, onSelectProject }) => {
-  // Fix: Cast motion to any to bypass environment-specific type issues
   const Motion = motion as any;
   
   const featuredProjects = useMemo(() => {
@@ -134,9 +145,6 @@ export const Works: React.FC<WorksProps> = ({ projects, onSelectProject }) => {
            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
               <AnimatePresence mode="popLayout">
                 {featuredProjects.map((project, index) => {
-                  // Automatic alignment: 
-                  // If project has a specific gridArea in CMS, use it.
-                  // Otherwise, default to md:col-span-6 to maintain a balanced 2-column flow.
                   const spanClass = project.gridArea || 'md:col-span-6';
 
                   return (
@@ -155,7 +163,6 @@ export const Works: React.FC<WorksProps> = ({ projects, onSelectProject }) => {
                 })}
               </AnimatePresence>
 
-              {/* Mobile Only: Archive Button */}
               <Motion.div 
                 initial={{ opacity: 0, y: 50 }} 
                 whileInView={{ opacity: 1, y: 0 }} 

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Project } from '../../types';
 import { ArrowLeft } from 'lucide-react';
+import { Skeleton } from '../UI/Skeleton';
 
 interface AllWorksProps {
     projects: Project[];
@@ -11,7 +12,42 @@ interface AllWorksProps {
     onBack: () => void;
 }
 
+const ProjectItem = ({ project, onSelect, getCategoryLabel }: { project: Project, onSelect: (p: Project) => void, getCategoryLabel: (c: string) => string }) => {
+    const Motion = motion as any;
+    const [imageLoaded, setImageLoaded] = useState(false);
+
+    return (
+        <Motion.div 
+            layout 
+            initial={{ opacity: 0, scale: 0.9 }} 
+            animate={{ opacity: 1, scale: 1 }} 
+            exit={{ opacity: 0, scale: 0.9 }} 
+            transition={{ duration: 0.3 }} 
+            className="group cursor-pointer text-left" 
+            onClick={() => onSelect(project)}
+        >
+            <div className="aspect-square rounded-2xl overflow-hidden relative mb-4 border border-white/5 bg-navy">
+                {!imageLoaded && <Skeleton className="absolute inset-0 z-10 rounded-none" />}
+                <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 ${imageLoaded ? 'opacity-80 group-hover:opacity-100' : 'opacity-0'}`} 
+                    onLoad={() => setImageLoaded(true)}
+                />
+                <div className="absolute top-4 right-4 z-20 bg-midnight/80 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                    <span className="text-[10px] text-electric uppercase tracking-widest">{getCategoryLabel(project.filterCategory)}</span>
+                </div>
+            </div>
+            <div>
+                <h3 className="text-xl font-display font-bold text-white group-hover:text-electric transition-colors">{project.title}</h3>
+                <p className="text-white/40 text-sm mt-1 line-clamp-2">{project.description}</p>
+            </div>
+        </Motion.div>
+    );
+};
+
 export const AllWorks: React.FC<AllWorksProps> = ({ projects, onSelectProject, onBack }) => {
+    const Motion = motion as any;
     const categories = [
         { id: 'all', label: 'Master Archive' },
         { id: 'coding', label: 'Creative Engineering' },
@@ -42,9 +78,9 @@ export const AllWorks: React.FC<AllWorksProps> = ({ projects, onSelectProject, o
                         <button onClick={onBack} className="group flex items-center gap-2 text-white/50 hover:text-electric mb-6 transition-colors text-xs uppercase tracking-widest">
                             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Home
                         </button>
-                        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-display font-bold text-5xl md:text-7xl text-white">
+                        <Motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-display font-bold text-5xl md:text-7xl text-white">
                             All <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric to-violet">Works</span>
-                        </motion.h1>
+                        </Motion.h1>
                     </div>
                     <div className="flex flex-wrap gap-2 md:gap-4">
                         {categories.map(cat => (
@@ -55,24 +91,27 @@ export const AllWorks: React.FC<AllWorksProps> = ({ projects, onSelectProject, o
                     </div>
                 </div>
 
-                <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <Motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <AnimatePresence>
-                        {filteredProjects.map((project) => (
-                            <motion.div layout key={project.id} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.3 }} className="group cursor-pointer text-left" onClick={() => onSelectProject(project)}>
-                                <div className="aspect-square rounded-2xl overflow-hidden relative mb-4 border border-white/5 bg-navy">
-                                    <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100" />
-                                    <div className="absolute top-4 right-4 bg-midnight/80 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
-                                        <span className="text-[10px] text-electric uppercase tracking-widest">{getCategoryLabel(project.filterCategory)}</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-display font-bold text-white group-hover:text-electric transition-colors">{project.title}</h3>
-                                    <p className="text-white/40 text-sm mt-1 line-clamp-2">{project.description}</p>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
-                </motion.div>
+  {filteredProjects.map((project) => (
+    <motion.div
+      key={project.id}
+      layout
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.3 }}
+    >
+      <ProjectItem
+        project={project}
+        onSelect={onSelectProject}
+        getCategoryLabel={getCategoryLabel}
+      />
+    </motion.div>
+  ))}
+</AnimatePresence>
+
+                </Motion.div>
                 {filteredProjects.length === 0 && <div className="text-center py-20 text-white/30 font-mono">No projects found.</div>}
             </div>
         </div>

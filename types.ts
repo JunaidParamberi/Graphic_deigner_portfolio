@@ -1,6 +1,6 @@
 
 export interface Project {
-  id: string;
+  id: string | number;
   title: string;
   category: string; // Display category
   filterCategory: 'coding' | 'graphic' | 'motion' | 'photo-video'; // For filtering
