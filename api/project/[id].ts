@@ -55,7 +55,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const project = await getProjectById(id);
 
   const title = project ? `${escapeHtml(project.title)} | Junaid Paramberi` : 'Junaid Paramberi | Creative Technologist & Visual Storyteller';
-  const description = project ? escapeHtml(project.description) : 'Bridging the gap between raw data and luxury visual storytelling through graphic design, motion, and code.';
+  const rawDescription = project ? project.description : 'Bridging the gap between raw data and luxury visual storytelling through graphic design, motion, and code.';
+  const description = rawDescription.length > 200 ? rawDescription.slice(0, 197) + '...' : rawDescription;
   const imageUrl = project ? absoluteImageUrl(project.image) : `${SITE_URL}/assets/images/cover.png`;
   const pageUrl = `${SITE_URL}/project/${id}`;
 
@@ -66,6 +67,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
+  <meta name="author" content="Junaid Paramberi" />
   <link rel="canonical" href="${escapeHtml(pageUrl)}" />
   <!-- Open Graph -->
   <meta property="og:type" content="article" />

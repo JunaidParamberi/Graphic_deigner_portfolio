@@ -1,9 +1,10 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Cpu, Palette, Layout, Images, Maximize2, Zap, ChevronLeft, ChevronRight, ArrowUpRight, Hash, Compass } from 'lucide-react';
+import { X, Cpu, Palette, Layout, Images, Maximize2, Zap, ChevronLeft, ChevronRight, ArrowUpRight, Hash, Compass, Share2, Check } from 'lucide-react';
 import { Project } from '../../types';
 import { Skeleton } from './Skeleton';
+import { SITE_URL } from '../../constants';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -28,6 +29,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [heroLoaded, setHeroLoaded] = useState(false);
   const [galleryLoaded, setGalleryLoaded] = useState<Record<number, boolean>>({});
+  const [shareCopied, setShareCopied] = useState(false);
+
+  const shareUrl = project ? `${SITE_URL}/project/${project.id}` : '';
+  const copyShareLink = async () => {
+    if (!shareUrl) return;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setShareCopied(true);
+      setTimeout(() => setShareCopied(false), 2000);
+    } catch (_) {}
+  };
 
   useEffect(() => {
     if (project) {
@@ -109,12 +121,24 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                       {project.id}
                    </span>
                 </Motion.div>
-                <button 
+                <div className="pointer-events-auto flex items-center gap-2">
+                  <button
+                    onClick={copyShareLink}
+                    className="p-3 md:p-4 rounded-full bg-midnight/40 backdrop-blur-xl border border-white/10 hover:border-electric/50 text-white/80 hover:text-electric transition-all duration-300 flex items-center gap-2"
+                    title="Copy link (share this for best preview)"
+                  >
+                    {shareCopied ? <Check size={18} className="text-electric" /> : <Share2 size={18} />}
+                    <span className="hidden sm:inline text-[10px] font-mono uppercase tracking-widest">
+                      {shareCopied ? 'Copied' : 'Share'}
+                    </span>
+                  </button>
+                  <button 
                     onClick={onClose}
-                    className="pointer-events-auto p-3 md:p-4 rounded-full bg-electric/10 hover:bg-electric text-electric hover:text-midnight border border-electric/20 transition-all duration-300 backdrop-blur-md group ml-auto"
-                >
+                    className="p-3 md:p-4 rounded-full bg-electric/10 hover:bg-electric text-electric hover:text-midnight border border-electric/20 transition-all duration-300 backdrop-blur-md group"
+                  >
                     <X size={20} className="md:w-6 md:h-6 group-hover:rotate-90 transition-transform duration-300" />
-                </button>
+                  </button>
+                </div>
             </div>
 
             <div className="w-full min-h-screen pb-32">

@@ -1,21 +1,38 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Junaid Paramberi — Portfolio
 
-# Run and deploy your AI Studio app
+Creative technologist & visual storyteller portfolio. Built with React, Vite, and Firebase (projects, experience, clients, and profile data).
 
-This contains everything you need to run your app locally.
+## Run locally
 
-View your app in AI Studio: https://ai.studio/apps/drive/1OGTkOyWEpWfdlH6BBp6RnlVOqWLhgWpw
+**Prerequisites:** Node.js
 
-## Run Locally
+```bash
+npm install
+npm run dev
+```
 
-**Prerequisites:**  Node.js
+Open [http://localhost:3000](http://localhost:3000).
 
+## Build
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
-# Graphic_deigner_portfolio
+```bash
+npm run build
+```
+
+## Deploy (Vercel)
+
+Deploy the repo to Vercel. The app uses:
+
+- **Rewrites** so `/project/:id` is handled by the serverless function (see `vercel.json`).
+- **Firebase** (client): ensure your Firebase config in `firebase.ts` and Firestore/Storage are set up.
+
+## Social share (project link previews)
+
+When someone shares a project link (WhatsApp, Twitter, LinkedIn, etc.), the preview shows the **project cover image**, **title**, and **description**.
+
+1. **Share the path URL:** `https://junaidparamberi.com/project/PROJECT_ID` — use the **Share** button on a project to copy this link.
+2. **Deploy on Vercel** so the `/project/:id` serverless route runs.
+3. In Vercel → Project → Settings → Environment Variables, add:
+   - **`FIREBASE_SERVICE_ACCOUNT_JSON`** — full JSON string of your Firebase service account key (Firebase Console → Project settings → Service accounts → Generate new private key).
+
+Without this env var, shared project links still work but show the default site image and title instead of the project’s.
