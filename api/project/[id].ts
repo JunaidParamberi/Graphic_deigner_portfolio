@@ -62,8 +62,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const redirectUrl = `${SITE_URL}/#project-${encodeURIComponent(id)}`;
   const redirectUrlEscaped = redirectUrl.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
+  const projectTitle = project ? escapeHtml(project.title) : 'Project';
+
   // Meta tags for link previews (crawlers read these; they don't run JS).
-  // JS redirect for users — goes straight to the project, no extra click.
+  // Loading page + JS redirect for users — matches portfolio theme.
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,11 +91,81 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="twitter:description" content="${escapeHtml(description)}" />
   <meta name="twitter:image" content="${escapeHtml(imageUrl)}" />
   <meta name="twitter:image:alt" content="${escapeHtml(project?.title ?? title)}" />
+  <meta name="theme-color" content="#0B0014" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #0B0014;
+      color: #E0E0FF;
+      font-family: 'Syne', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow: hidden;
+    }
+    .loader-wrap {
+      text-align: center;
+      max-width: 320px;
+    }
+    .loader-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #00F0FF;
+      margin-bottom: 1rem;
+    }
+    .loader-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 1.5rem;
+      border: 2px solid rgba(26, 26, 46, 0.8);
+      border-top-color: #00F0FF;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .bar {
+      height: 2px;
+      background: rgba(26, 26, 46, 0.8);
+      border-radius: 1px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 30%;
+      background: linear-gradient(90deg, #00F0FF, #B026FF);
+      border-radius: 1px;
+      animation: bar 1.2s ease-in-out infinite;
+    }
+    @keyframes bar { 0%, 100% { transform: translateX(-100%); } 50% { transform: translateX(200%); } }
+    .noscript-link { margin-top: 1.5rem; font-size: 0.875rem; }
+    .noscript-link a { color: #00F0FF; text-decoration: none; }
+    .noscript-link a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
-  <p>Taking you to the project...</p>
+  <div class="loader-wrap">
+    <div class="spinner" aria-hidden="true"></div>
+    <p class="loader-label">Loading project</p>
+    <h1 class="loader-title">${projectTitle}</h1>
+    <div class="bar"><div class="bar-fill"></div></div>
+  </div>
+  <noscript class="noscript-link"><a href="${escapeHtml(redirectUrl)}">Open project</a></noscript>
   <script>window.location.replace('${redirectUrlEscaped}');</script>
-  <noscript><a href="${escapeHtml(redirectUrl)}">Open project</a></noscript>
 </body>
 </html>`;
 
