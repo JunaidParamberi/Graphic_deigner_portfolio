@@ -18,6 +18,7 @@ import { AllWorks } from './components/Pages/AllWorks';
 import { Project, Experience, Client, Overview } from './types';
 import { db, fetchCollection, fetchDocument } from './firebase';
 import { SITE_URL } from './constants';
+import { Analytics } from '@vercel/analytics/react';
 
 function absoluteImageUrl(url: string): string {
   if (!url) return `${SITE_URL}/assets/images/cover.png`;
@@ -134,6 +135,7 @@ function App() {
 
   return (
     <div className="bg-midnight min-h-screen text-white selection:bg-electric selection:text-black">
+      <Analytics />
       <CustomCursor />
       <ParticleBackground />
       
