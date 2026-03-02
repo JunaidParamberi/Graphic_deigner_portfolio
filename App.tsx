@@ -17,6 +17,14 @@ import { ParticleBackground } from './components/UI/ParticleBackground';
 import { AllWorks } from './components/Pages/AllWorks';
 import { Project, Experience, Client, Overview } from './types';
 import { db, fetchCollection, fetchDocument } from './firebase';
+import { SITE_URL } from './constants';
+
+function absoluteImageUrl(url: string): string {
+  if (!url) return `${SITE_URL}/assets/images/cover.png`;
+  if (/^https?:\/\//i.test(url)) return url;
+  const path = url.startsWith('/') ? url : `/${url}`;
+  return `${SITE_URL}${path}`;
+}
 
 function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -58,56 +66,70 @@ function App() {
     loadData();
   }, []);
 
+  // Sync URL (hash or path /project/:id) to state
   useEffect(() => {
-    const handleHashChange = () => {
+    const syncFromUrl = () => {
       const hash = window.location.hash;
-      
+      const pathMatch = window.location.pathname.match(/^\/project\/([^/]+)\/?$/);
+
       if (hash === '#all-works') {
-          setView('all-works');
-          setSelectedProject(null);
-      } else if (hash.startsWith('#project-')) {
+        setView('all-works');
+        setSelectedProject(null);
+        return;
+      }
+      if (pathMatch) {
+        const projectId = pathMatch[1];
+        const project = projects.find(p => String(p.id) === projectId);
+        if (project) {
+          setSelectedProject(project);
+          setView('home');
+        }
+        return;
+      }
+      if (hash.startsWith('#project-')) {
         const projectId = hash.replace('#project-', '');
-        const project = projects.find(p => p.id === projectId);
+        const project = projects.find(p => String(p.id) === projectId);
         if (project) {
           setSelectedProject(project);
         }
-      } else {
-         setView('home');
-         if (!hash.includes('project-')) {
-            setSelectedProject(null);
-         }
+        setView('home');
+        return;
       }
+      setView('home');
+      setSelectedProject(null);
     };
 
     if (projects.length > 0) {
-      handleHashChange();
+      syncFromUrl();
     }
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('hashchange', syncFromUrl);
+    window.addEventListener('popstate', syncFromUrl);
+    return () => {
+      window.removeEventListener('hashchange', syncFromUrl);
+      window.removeEventListener('popstate', syncFromUrl);
+    };
   }, [projects]);
 
   const handleSelectProject = (project: Project) => {
     setSelectedProject(project);
-    window.location.hash = `project-${project.id}`;
+    const id = String(project.id);
+    // Use path-based URL so shared links get project-specific meta from server
+    window.history.pushState({}, '', `/project/${id}`);
   };
 
   const handleCloseProject = () => {
     setSelectedProject(null);
     if (view === 'all-works') {
-        window.location.hash = 'all-works';
+      window.history.pushState({}, '', '/');
+      window.location.hash = 'all-works';
     } else {
-        window.location.hash = '';
-        if (window.location.hash === '#') {
-            try {
-                window.history.replaceState(null, '', window.location.pathname + window.location.search);
-            } catch (e) {}
-        }
+      window.history.replaceState({}, '', '/');
     }
   };
 
   const handleBackToHome = () => {
-      window.location.hash = '';
-      setView('home');
+    window.history.replaceState({}, '', '/');
+    setView('home');
   };
 
   return (
@@ -116,9 +138,33 @@ function App() {
       <ParticleBackground />
       
       <Helmet>
-        <title>Junaid Paramberi | Creative Technologist & Visual Storyteller</title>
-        <meta name="description" content="Bridging the gap between raw data and luxury visual storytelling through graphic design, motion, and code." />
-        <link rel="canonical" href="https://junaidparamberi.com/" />
+        {selectedProject ? (
+          <>
+            <title>{selectedProject.title} | Junaid Paramberi</title>
+            <meta name="description" content={selectedProject.description} />
+            <link rel="canonical" href={`${SITE_URL}/project/${selectedProject.id}`} />
+            <meta property="og:type" content="article" />
+            <meta property="og:url" content={`${SITE_URL}/project/${selectedProject.id}`} />
+            <meta property="og:title" content={`${selectedProject.title} | Junaid Paramberi`} />
+            <meta property="og:description" content={selectedProject.description} />
+            <meta property="og:image" content={absoluteImageUrl(selectedProject.image)} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta property="og:site_name" content="Junaid Paramberi" />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:url" content={`${SITE_URL}/project/${selectedProject.id}`} />
+            <meta name="twitter:title" content={`${selectedProject.title} | Junaid Paramberi`} />
+            <meta name="twitter:description" content={selectedProject.description} />
+            <meta name="twitter:image" content={absoluteImageUrl(selectedProject.image)} />
+            <meta name="twitter:image:alt" content={selectedProject.title} />
+          </>
+        ) : (
+          <>
+            <title>Junaid Paramberi | Creative Technologist & Visual Storyteller</title>
+            <meta name="description" content="Bridging the gap between raw data and luxury visual storytelling through graphic design, motion, and code." />
+            <link rel="canonical" href={`${SITE_URL}/`} />
+          </>
+        )}
       </Helmet>
 
       <AnimatePresence mode="wait">

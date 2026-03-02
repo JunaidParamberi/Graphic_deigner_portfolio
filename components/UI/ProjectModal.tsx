@@ -1,7 +1,6 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
 import { X, Cpu, Palette, Layout, Images, Maximize2, Zap, ChevronLeft, ChevronRight, ArrowUpRight, Hash, Compass } from 'lucide-react';
 import { Project } from '../../types';
 import { Skeleton } from './Skeleton';
@@ -92,9 +91,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     <AnimatePresence>
       {project && (
         <>
-        <Helmet>
-            <title>{project.title} | Junaid Paramberi</title>
-        </Helmet>
         <Motion.div
             key={`modal-${project.id}`}
             initial={{ opacity: 0 }}
