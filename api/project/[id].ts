@@ -45,18 +45,6 @@ async function getProjectById(id: string): Promise<{ title: string; description:
   }
 }
 
-const CRAWLER_UA_PATTERNS = [
-  'telegrambot', 'facebookexternalhit', 'facebot', 'twitterbot', 'linkedinbot',
-  'whatsapp', 'slack', 'discord', 'applebot', 'googlebot', 'bingbot',
-  'pinterest', 'slurp', 'baiduspider', 'yandexbot', 'bot', 'crawler', 'spider'
-];
-
-function isCrawler(userAgent: string | undefined): boolean {
-  if (!userAgent) return false;
-  const ua = userAgent.toLowerCase();
-  return CRAWLER_UA_PATTERNS.some(p => ua.includes(p));
-}
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const id = req.query.id as string;
   if (!id) {
@@ -65,7 +53,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const project = await getProjectById(id);
-  const forCrawler = isCrawler(req.headers['user-agent'] as string);
 
   const title = project ? `${escapeHtml(project.title)} | Junaid Paramberi` : 'Junaid Paramberi | Creative Technologist & Visual Storyteller';
   const rawDescription = project ? project.description : 'Bridging the gap between raw data and luxury visual storytelling through graphic design, motion, and code.';
@@ -73,14 +60,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const imageUrl = project ? absoluteImageUrl(project.image) : `${SITE_URL}/assets/images/cover.png`;
   const pageUrl = `${SITE_URL}/project/${id}`;
   const redirectUrl = `${SITE_URL}/#project-${encodeURIComponent(id)}`;
+  const redirectUrlEscaped = redirectUrl.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
-  // Crawlers: no redirect — they must see this HTML and its meta only (so preview shows project).
-  // Users: redirect to SPA so they get the app.
-  const redirectMeta = forCrawler ? '' : `  <meta http-equiv="refresh" content="0;url=${escapeHtml(redirectUrl)}" />`;
-  const redirectBody = forCrawler
-    ? '<p>View project: <a href="' + escapeHtml(redirectUrl) + '">' + escapeHtml(title) + '</a></p>'
-    : '<p>Redirecting to <a href="' + escapeHtml(redirectUrl) + '">project</a>...</p>\n  <script>window.location.replace("' + redirectUrl.replace(/\\/g, '\\\\').replace(/'/g, "\\'") + '");</script>';
-
+  // Meta tags for link previews (crawlers read these; they don't run JS).
+  // JS redirect for users — goes straight to the project, no extra click.
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,10 +89,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="twitter:description" content="${escapeHtml(description)}" />
   <meta name="twitter:image" content="${escapeHtml(imageUrl)}" />
   <meta name="twitter:image:alt" content="${escapeHtml(project?.title ?? title)}" />
-${redirectMeta}
 </head>
 <body>
-  ${redirectBody}
+  <p>Taking you to the project...</p>
+  <script>window.location.replace('${redirectUrlEscaped}');</script>
+  <noscript><a href="${escapeHtml(redirectUrl)}">Open project</a></noscript>
 </body>
 </html>`;
 
