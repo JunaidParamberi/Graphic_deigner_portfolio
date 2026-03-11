@@ -1,8 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 
+/** True if the URL is same-origin so fetch() won't hit CORS. */
+function isSameOrigin(url: string): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const u = new URL(url, window.location.origin);
+    return u.origin === window.location.origin;
+  } catch {
+    return false;
+  }
+}
+
 /**
- * Fetches a URL and returns a blob object URL so the original URL isn't exposed in the DOM.
- * Revokes the blob URL on unmount or when url changes. Falls back to original URL if fetch fails (e.g. CORS).
+ * For same-origin URLs: fetches and returns a blob object URL so the original URL isn't exposed.
+ * For cross-origin URLs (Behance, Firebase Storage, etc.): skips fetch to avoid CORS errors,
+ * returns null so the component uses the original URL. Protection (no right-click, no drag) still applies.
  */
 export function useBlobUrl(url: string | undefined, _type: 'image' | 'video'): { blobUrl: string | null; fallbackUrl: string; loading: boolean } {
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
@@ -11,6 +23,12 @@ export function useBlobUrl(url: string | undefined, _type: 'image' | 'video'): {
 
   useEffect(() => {
     if (!url) {
+      setBlobUrl(null);
+      setLoading(false);
+      return;
+    }
+
+    if (!isSameOrigin(url)) {
       setBlobUrl(null);
       setLoading(false);
       return;

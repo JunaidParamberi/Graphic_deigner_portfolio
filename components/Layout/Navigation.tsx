@@ -161,7 +161,7 @@ export const Navigation = () => {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, type: 'spring' }}
-            className="fixed top-6 left-6 z-50 pointer-events-auto"
+            className="fixed top-6 left-10 z-50 pointer-events-auto"
         >
             <Magnetic strength={0.2}>
                 <a href="#about" onClick={handleLogoClick} className="group relative block">
@@ -180,7 +180,7 @@ export const Navigation = () => {
             initial="visible"
             animate={isHidden ? "hidden" : "visible"}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-6 right-6 -translate-x-1/2 z-40 hidden md:flex flex-col items-center pointer-events-auto"
+            className="fixed top-6 right-6 -translate-x-[-40%] z-40 hidden md:flex flex-col items-center pointer-events-auto"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >

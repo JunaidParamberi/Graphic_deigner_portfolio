@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { CustomCursor } from './components/Layout/CustomCursor';
@@ -38,6 +38,7 @@ function App() {
   const [clients, setClients] = useState<Client[]>([]);
   const [overview, setOverview] = useState<Overview | null>(null);
   const [skills, setSkills] = useState<string[]>([]);
+  const returnUrlRef = useRef<{ search: string; hash: string } | null>(null);
 
   // Fetch data from Firebase
   useEffect(() => {
@@ -112,17 +113,23 @@ function App() {
   }, [projects]);
 
   const handleSelectProject = (project: Project) => {
+    returnUrlRef.current = { search: window.location.search, hash: window.location.hash };
     setSelectedProject(project);
     const id = String(project.id);
-    // Use path-based URL so shared links get project-specific meta from server
     window.history.pushState({}, '', `/project/${id}`);
   };
 
   const handleCloseProject = () => {
     setSelectedProject(null);
-    if (view === 'all-works') {
-      window.history.pushState({}, '', '/');
-      window.location.hash = 'all-works';
+    if (view === 'all-works' && returnUrlRef.current) {
+      const { search, hash } = returnUrlRef.current;
+      const path = '/' + search + (hash || '#all-works');
+      window.history.replaceState({}, '', path);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      returnUrlRef.current = null;
+    } else if (view === 'all-works') {
+      window.history.replaceState({}, '', '/#all-works');
+      window.dispatchEvent(new PopStateEvent('popstate'));
     } else {
       window.history.replaceState({}, '', '/');
     }
@@ -135,7 +142,7 @@ function App() {
 
   return (
     <div className="bg-midnight min-h-screen text-white selection:bg-electric selection:text-black">
-      <Analytics />
+      <Analytics debug={false} />
       <CustomCursor />
       <ParticleBackground />
       

@@ -70,7 +70,7 @@ export const CustomCursor = () => {
     default: {
       height: 32,
       width: 32,
-      backgroundColor: "transparent",
+      backgroundColor: "rgba(0,0,0,0)",
       border: "1px solid #00F0FF",
       mixBlendMode: "difference" as any,
     },

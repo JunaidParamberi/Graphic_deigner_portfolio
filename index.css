@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* Theme variables (used by Tailwind and by theme switcher) */
+:root {
+  --color-midnight: #0B0014;
+  --color-navy: #1A1A2E;
+  --color-ice: #E0E0FF;
+  --color-electric: #00F0FF;
+  --color-violet: #B026FF;
+  --color-violet-dark: #4c1d95;
+}
+
+[data-theme='gold'] {
+  --color-midnight: #050505;
+  --color-navy: #141414;
+  --color-ice: #F0F0F0;
+  --color-electric: #FFD700;
+  --color-violet: #C0C0C0;
+  --color-violet-dark: #808080;
+}
+
+[data-theme='crimson'] {
+  --color-midnight: #1a0505;
+  --color-navy: #2d0a0a;
+  --color-ice: #ffecec;
+  --color-electric: #ff4d4d;
+  --color-violet: #ff9e9e;
+  --color-violet-dark: #800000;
+}
+
+@theme {
+  --color-midnight: var(--color-midnight);
+  --color-navy: var(--color-navy);
+  --color-ice: var(--color-ice);
+  --color-electric: var(--color-electric);
+  --color-violet: var(--color-violet);
+  --color-violet-dark: var(--color-violet-dark);
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Syne', sans-serif;
+  --background-image-chrome-gradient: linear-gradient(135deg, var(--color-electric) 0%, var(--color-violet) 100%);
+  --background-image-noise: url('https://grainy-gradients.vercel.app/noise.svg');
+  --cursor-none: none;
+}
+
+body {
+  cursor: none;
+  background-color: var(--color-midnight);
+  color: var(--color-ice);
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-midnight);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-navy);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-violet);
+}
+
+.text-glow {
+  text-shadow: 0 0 20px rgba(176, 38, 255, 0.5);
+}
+
+.liquid-text {
+  filter: url(#liquid);
+}
+
+.animate-noise {
+  animation: noiseAnimation 0.5s steps(5) infinite;
+}
+
+@keyframes noiseAnimation {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -5%); }
+  20% { transform: translate(-10%, 5%); }
+  30% { transform: translate(5%, -10%); }
+  40% { transform: translate(-5%, 15%); }
+  50% { transform: translate(-10%, 5%); }
+  60% { transform: translate(15%, 0); }
+  70% { transform: translate(0, 10%); }
+  80% { transform: translate(-15%, 0); }
+  90% { transform: translate(10%, 5%); }
+  100% { transform: translate(5%, 0); }
+}

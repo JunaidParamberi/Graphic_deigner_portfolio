@@ -167,7 +167,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                           <span className="inline-block px-3 py-1 bg-electric/20 border border-electric/30 rounded text-[10px] font-mono text-electric uppercase tracking-[0.2em] mb-4">
                              {project.category.split(',')[0]}
                           </span>
-                          <h1 className="text-4xl md:text-7xl lg:text-8xl font-display font-black text-white tracking-tighter uppercase leading-[0.9]">
+                          <h1 className="text-2xl md:text-4xl lg:text-5xl font-display font-black text-white tracking-tighter uppercase leading-[0.95]">
                               {project.title}
                           </h1>
                         </Motion.div>
