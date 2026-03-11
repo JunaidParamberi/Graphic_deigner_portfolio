@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Cpu, Palette, Layout, Images, Maximize2, Zap, ChevronLeft, ChevronRight, ArrowUpRight, Hash, Compass, Share2, Check } from 'lucide-react';
 import { Project } from '../../types';
 import { Skeleton } from './Skeleton';
+import { ProtectedImage, ProtectedVideo } from './ProtectedMedia';
 import { SITE_URL } from '../../constants';
 
 interface ProjectModalProps {
@@ -148,7 +149,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                         className="absolute inset-0 w-full h-full"
                     >
                          {!heroLoaded && <Skeleton className="absolute inset-0 z-10 rounded-none" />}
-                         <img 
+                         <ProtectedImage 
                             src={project.image} 
                             className={`w-full h-full object-cover transition-opacity duration-1000 ${heroLoaded ? 'opacity-100' : 'opacity-0'}`} 
                             alt="Hero" 
@@ -287,14 +288,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                                         <div className={`relative w-full ${layout.height} overflow-hidden bg-navy border border-white/5 rounded-2xl group-hover:border-electric/40 transition-colors duration-500`}>
                                             {!galleryLoaded[index] && <Skeleton className="absolute inset-0 z-10 rounded-none" />}
                                             {item.type === 'video' ? (
-                                                <video 
+                                                <ProtectedVideo 
                                                     autoPlay muted loop playsInline 
                                                     className={`w-full h-full object-cover transition-opacity duration-1000 ${galleryLoaded[index] ? 'opacity-80 group-hover:opacity-100' : 'opacity-0'}`} 
                                                     src={item.url} 
                                                     onLoadedData={() => setGalleryLoaded(prev => ({ ...prev, [index]: true }))}
                                                 />
                                             ) : (
-                                                <img 
+                                                <ProtectedImage 
                                                     src={item.url} 
                                                     alt="" 
                                                     className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 ${galleryLoaded[index] ? 'opacity-80 group-hover:opacity-100' : 'opacity-0'}`} 
@@ -344,9 +345,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                               onClick={(e: any) => e.stopPropagation()}
                             >
                                 {project.gallery[lightboxIndex].type === 'video' ? (
-                                    <video controls autoPlay className="max-w-[90vw] max-h-[80vh] rounded-xl shadow-2xl border border-white/10" src={project.gallery[lightboxIndex].url} />
+                                    <ProtectedVideo controls autoPlay className="max-w-[90vw] max-h-[80vh] rounded-xl shadow-2xl border border-white/10" src={project.gallery[lightboxIndex].url} />
                                 ) : (
-                                    <img src={project.gallery[lightboxIndex].url} alt="" className="max-w-[90vw] max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/10" />
+                                    <ProtectedImage src={project.gallery[lightboxIndex].url} alt="" className="max-w-[90vw] max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/10" />
                                 )}
                             </Motion.div>
                         </AnimatePresence>

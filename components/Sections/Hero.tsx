@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import { ArrowDown, Scan, Boxes, Activity, Code, Layers, MousePointer2, Sparkles } from 'lucide-react';
 import { Magnetic } from '../UI/Magnetic';
+import { ProtectedImage } from '../UI/ProtectedMedia';
 
 // --- Professional Graphic Design Components ---
 
@@ -74,7 +75,7 @@ const MediaShard: React.FC<{ image: string, index: number, mouseX: any, mouseY: 
             className={`absolute ${positions[index % positions.length]} z-0 group project-card pointer-events-auto cursor-none`}
         >
             <div className="w-full h-full rounded-2xl overflow-hidden border border-white/10 bg-navy/40 backdrop-blur-md shadow-2xl transition-all duration-700 group-hover:border-electric/50 group-hover:shadow-electric/30">
-                <img src={image} alt="" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" />
+                <ProtectedImage src={image} alt="" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-midnight/60 via-transparent to-transparent opacity-80" />
                 
                 <div className="absolute top-4 left-4 flex items-center gap-2">

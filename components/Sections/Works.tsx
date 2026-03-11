@@ -5,6 +5,7 @@ import { Project } from '../../types';
 import { ArrowUpRight, ArrowRight, Disc } from 'lucide-react';
 import { Magnetic } from '../UI/Magnetic';
 import { Skeleton } from '../UI/Skeleton';
+import { ProtectedImage } from '../UI/ProtectedMedia';
 
 interface WorksProps {
   projects: Project[];
@@ -39,7 +40,7 @@ const ProjectCard = ({ project, onSelect, className, index }: { project: Project
                 <Motion.div 
                     className={`absolute inset-0 z-10 transition-all duration-1000 group-hover:scale-105 ${imageLoaded ? 'opacity-60 grayscale-[0.5] group-hover:grayscale-0 group-hover:opacity-100' : 'opacity-0'}`}
                 >
-                    <img 
+                    <ProtectedImage 
                         src={project.image} 
                         alt={project.title} 
                         className="w-full h-full object-cover" 

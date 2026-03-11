@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { Project } from '../../types';
 import { ArrowLeft } from 'lucide-react';
 import { Skeleton } from '../UI/Skeleton';
+import { ProtectedImage } from '../UI/ProtectedMedia';
 
 interface AllWorksProps {
     projects: Project[];
@@ -28,7 +29,7 @@ const ProjectItem = ({ project, onSelect, getCategoryLabel }: { project: Project
         >
             <div className="aspect-square rounded-2xl overflow-hidden relative mb-4 border border-white/5 bg-navy">
                 {!imageLoaded && <Skeleton className="absolute inset-0 z-10 rounded-none" />}
-                <img 
+                <ProtectedImage 
                     src={project.image} 
                     alt={project.title} 
                     className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 ${imageLoaded ? 'opacity-80 group-hover:opacity-100' : 'opacity-0'}`} 
