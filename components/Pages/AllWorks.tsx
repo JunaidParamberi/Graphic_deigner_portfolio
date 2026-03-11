@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Project } from '../../types';
@@ -56,7 +56,47 @@ export const AllWorks: React.FC<AllWorksProps> = ({ projects, onSelectProject, o
         { id: 'photo-video', label: 'Lens Media' },
     ];
 
-    const [filter, setFilter] = useState('all');
+    const getFilterFromSearch = () => {
+        if (typeof window === 'undefined') return 'all';
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const value = params.get('filter') || 'all';
+            const isValid = categories.some(cat => cat.id === value);
+            return isValid ? value : 'all';
+        } catch {
+            return 'all';
+        }
+    };
+
+    const [filter, setFilter] = useState<string>(getFilterFromSearch);
+
+    // Keep filter in sync with URL when user navigates with back/forward
+    useEffect(() => {
+        const handlePopState = () => {
+            setFilter(getFilterFromSearch());
+        };
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+    }, []);
+
+    const setFilterAndUrl = (next: string) => {
+        setFilter(next);
+        try {
+            const url = new URL(window.location.href);
+            const params = url.searchParams;
+            if (next === 'all') {
+                params.delete('filter');
+            } else {
+                params.set('filter', next);
+            }
+            const search = params.toString();
+            const hash = url.hash || window.location.hash || '';
+            const newUrl = url.pathname + (search ? `?${search}` : '') + hash;
+            window.history.replaceState({}, '', newUrl);
+        } catch {
+            // If URL APIs fail for any reason, fall back to state-only filter
+        }
+    };
 
     const filteredProjects = filter === 'all' 
         ? projects 
@@ -84,7 +124,7 @@ export const AllWorks: React.FC<AllWorksProps> = ({ projects, onSelectProject, o
                     </div>
                     <div className="flex flex-wrap gap-2 md:gap-4">
                         {categories.map(cat => (
-                            <button key={cat.id} onClick={() => setFilter(cat.id)} className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border transition-all ${filter === cat.id ? 'bg-electric text-midnight border-electric' : 'bg-transparent text-white/60 border-white/10 hover:border-white/40'}`}>
+                            <button key={cat.id} onClick={() => setFilterAndUrl(cat.id)} className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border transition-all ${filter === cat.id ? 'bg-electric text-midnight border-electric' : 'bg-transparent text-white/60 border-white/10 hover:border-white/40'}`}>
                                 {cat.label}
                             </button>
                         ))}

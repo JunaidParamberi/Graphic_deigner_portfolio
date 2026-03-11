@@ -1,9 +1,15 @@
 
+// Defining GalleryItem interface for project media assets
+export interface GalleryItem {
+  type: 'image' | 'video';
+  url: string;
+}
+
 export interface Project {
-  id: string | number;
+  id: string;
   title: string;
-  category: string; // Display category
-  filterCategory: 'coding' | 'graphic' | 'motion' | 'photo-video'; // For filtering
+  category: string; 
+  filterCategory: 'coding' | 'graphic' | 'motion' | 'photo-video'; 
   featured?: boolean;
   image: string;
   description: string;
@@ -19,11 +25,10 @@ export interface Project {
     execution: string;
     result: string;
   };
-  gallery?: {
-    type: 'image' | 'video';
-    url: string;
-  }[];
-  gridArea?: string; // For Bento Layout
+  gallery?: GalleryItem[];
+  gridArea?: string; 
+  order?: number; // Added for persistent sorting
+  aiContext?: string; // Context provided by user for AI generation
 }
 
 export interface Experience {
@@ -33,6 +38,14 @@ export interface Experience {
   period: string;
   description: string;
   type: 'work' | 'education';
+}
+
+export interface Client {
+  id: string;
+  name: string;
+  role: string;
+  year: string;
+  description: string;
 }
 
 export interface Overview {
@@ -45,15 +58,33 @@ export interface Overview {
   }[];
 }
 
-export interface Client {
-  id: string;
-  name: string;
-  role: string;
-  year: string;
-  description: string;
+export interface SecuritySettings {
+  allowSignUp: boolean;
+  maintenanceMode: boolean;
+  webhookUrl?: string;
 }
 
 export interface CursorState {
   hidden: boolean;
   variant: 'default' | 'project' | 'text' | 'button';
 }
+
+export interface TransferFile {
+  name: string;
+  url: string;
+  size: number;
+  type: string;
+}
+
+export interface Transfer {
+  id: string;
+  title: string;
+  message?: string;
+  files: TransferFile[];
+  createdAt: string;
+  expiresAt: string;
+  isRevoked: boolean;
+  downloadCount: number;
+}
+
+export type ViewState = 'dashboard' | 'overview' | 'projects' | 'experience' | 'clients' | 'settings' | 'deploy' | 'transfers';
