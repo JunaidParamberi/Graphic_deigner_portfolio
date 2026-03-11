@@ -7,20 +7,20 @@ import { Sparkles, Menu, X, Disc, Aperture, Layers, Zap, Archive, Hexagon, Activ
 // --- Components ---
 
 const AudioWaveform = () => (
-    <div className="flex items-center gap-[3px] h-4 mx-3">
-        {[...Array(7)].map((_, i) => (
+    <div className="flex items-center gap-[2px] h-3 mx-2 opacity-50">
+        {[...Array(5)].map((_, i) => (
             <motion.div
                 key={i}
-                className="w-[2px] rounded-full bg-gradient-to-t from-electric/80 to-violet"
+                className="w-[1.5px] bg-electric rounded-full"
                 animate={{ 
-                    height: [4, 14, 6, 16, 4],
-                    opacity: [0.4, 1, 0.6, 1, 0.4]
+                    height: [3, 10, 5, 12, 3],
+                    opacity: [0.5, 1, 0.5]
                 }}
                 transition={{ 
-                    duration: 1.2, 
+                    duration: 0.8, 
                     repeat: Infinity, 
                     ease: "easeInOut",
-                    delay: i * 0.08,
+                    delay: i * 0.1,
                     repeatType: "mirror"
                 }}
             />
