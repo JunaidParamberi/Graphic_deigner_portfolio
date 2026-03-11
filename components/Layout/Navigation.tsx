@@ -156,8 +156,8 @@ export const Navigation = () => {
 
   return (
     <>
-        {/* --- Top bar: Logo + Nav in 80% width container --- */}
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] flex justify-between items-center z-50 pointer-events-none md:pointer-events-auto">
+        {/* --- Top bar: logo + nav in 80% width container --- */}
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 w-[80%] flex justify-between items-start z-50 pointer-events-none">
             {/* Logo */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0 }}
@@ -182,7 +182,7 @@ export const Navigation = () => {
                 initial="visible"
                 animate={isHidden ? "hidden" : "visible"}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="hidden md:flex flex-col items-center pointer-events-auto"
+                className="hidden md:flex flex-col items-end pointer-events-auto"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
