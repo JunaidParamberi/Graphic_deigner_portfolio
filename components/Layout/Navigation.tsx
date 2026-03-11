@@ -7,20 +7,20 @@ import { Sparkles, Menu, X, Disc, Aperture, Layers, Zap, Archive, Hexagon, Activ
 // --- Components ---
 
 const AudioWaveform = () => (
-    <div className="flex items-center gap-[2px] h-3 mx-2 opacity-50">
-        {[...Array(5)].map((_, i) => (
+    <div className="flex items-center gap-[3px] h-4 mx-3">
+        {[...Array(7)].map((_, i) => (
             <motion.div
                 key={i}
-                className="w-[1.5px] bg-electric rounded-full"
+                className="w-[2px] rounded-full bg-gradient-to-t from-electric/80 to-violet"
                 animate={{ 
-                    height: [3, 10, 5, 12, 3],
-                    opacity: [0.5, 1, 0.5]
+                    height: [4, 14, 6, 16, 4],
+                    opacity: [0.4, 1, 0.6, 1, 0.4]
                 }}
                 transition={{ 
-                    duration: 0.8, 
+                    duration: 1.2, 
                     repeat: Infinity, 
                     ease: "easeInOut",
-                    delay: i * 0.1,
+                    delay: i * 0.08,
                     repeatType: "mirror"
                 }}
             />
@@ -156,34 +156,36 @@ export const Navigation = () => {
 
   return (
     <>
-        {/* --- Logo (Fixed Top Left) --- */}
-        <motion.div 
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, type: 'spring' }}
-            className="fixed top-6 left-10 z-50 pointer-events-auto"
-        >
-            <Magnetic strength={0.2}>
-                <a href="#about" onClick={handleLogoClick} className="group relative block">
-                    <div className="absolute inset-0 bg-white/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <Logo className="w-10 h-10 relative z-10 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]" />
-                </a>
-            </Magnetic>
-        </motion.div>
+        {/* --- Top bar: Logo + Nav in 80% width container --- */}
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] flex justify-between items-center z-50 pointer-events-none md:pointer-events-auto">
+            {/* Logo */}
+            <motion.div 
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5, type: 'spring' }}
+                className="pointer-events-auto"
+            >
+                <Magnetic strength={0.2}>
+                    <a href="#about" onClick={handleLogoClick} className="group relative block">
+                        <div className="absolute inset-0 bg-white/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <Logo className="w-10 h-10 relative z-10 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]" />
+                    </a>
+                </Magnetic>
+            </motion.div>
 
-        {/* --- The Nexus Strip (Desktop) --- */}
-        <motion.nav 
-            variants={{
-                visible: { y: 0, filter: "blur(0px)" },
-                hidden: { y: -100, filter: "blur(10px)" }
-            }}
-            initial="visible"
-            animate={isHidden ? "hidden" : "visible"}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-6 right-6 -translate-x-[-40%] z-40 hidden md:flex flex-col items-center pointer-events-auto"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
+            {/* The Nexus Strip (Desktop) */}
+            <motion.nav 
+                variants={{
+                    visible: { y: 0, filter: "blur(0px)" },
+                    hidden: { y: -100, filter: "blur(10px)" }
+                }}
+                initial="visible"
+                animate={isHidden ? "hidden" : "visible"}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="hidden md:flex flex-col items-center pointer-events-auto"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
             {/* The Main Bar */}
             <motion.div 
                 layout
@@ -244,7 +246,7 @@ export const Navigation = () => {
                 className="w-[1px] bg-gradient-to-b from-white/0 to-white/10 absolute -top-6"
             />
         </motion.nav>
-
+        </div>
 
         {/* --- Mobile Trigger (Bottom Right) --- */}
         {/* Moving to bottom right allows easier thumb access on large phones and differentiates from standard top-right menus */}
