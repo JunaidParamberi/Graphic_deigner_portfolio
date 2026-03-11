@@ -157,7 +157,7 @@ export const Navigation = () => {
   return (
     <>
         {/* --- Top bar: logo + nav in 80% width container --- */}
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 w-[80%] flex justify-between items-start z-50 pointer-events-none">
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] flex justify-between items-start z-50 pointer-events-none">
             {/* Logo */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0 }}
