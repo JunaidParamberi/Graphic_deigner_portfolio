@@ -8,7 +8,6 @@ import { Hero } from './components/Sections/Hero';
 import { Journey } from './components/Sections/Journey';
 import { Clients } from './components/Sections/Clients';
 import { Works } from './components/Sections/Works';
-import { DesignGame } from './components/Sections/DesignGame';
 import { Contact } from './components/Sections/Contact';
 import { ProjectModal } from './components/UI/ProjectModal';
 import { Preloader } from './components/UI/Preloader';
@@ -196,9 +195,8 @@ function App() {
                           skills={skills} 
                           overview={overview} 
                         />
-                        <DesignGame />
-                        <Clients clients={clients} />
                         <Works projects={projects} onSelectProject={handleSelectProject} />
+                        <Clients clients={clients} />
                         <Contact />
                     </>
                 ) : (

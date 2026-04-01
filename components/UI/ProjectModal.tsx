@@ -1,5 +1,5 @@
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Cpu, Palette, Layout, Images, Maximize2, Zap, ChevronLeft, ChevronRight, ArrowUpRight, Hash, Compass, Share2, Check } from 'lucide-react';
 import { Project } from '../../types';
@@ -69,36 +69,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     const newIndex = (lightboxIndex + direction + project.gallery.length) % project.gallery.length;
     setLightboxIndex(newIndex);
   };
-
-  const layoutConfig = useMemo(() => {
-    if (!project?.gallery) return [];
-    const layouts: { span: string, height: string }[] = [];
-    let remaining = project.gallery.length;
-    let processed = 0;
-    while (remaining > 0) {
-        if (processed === 0) {
-            layouts.push({ span: "md:col-span-12", height: "h-[40vh] md:h-[80vh]" });
-            remaining--;
-            processed++;
-            continue;
-        }
-        if (remaining === 1) {
-            layouts.push({ span: "md:col-span-12", height: "h-[40vh] md:h-[80vh]" });
-            remaining--;
-        } else if (remaining === 2) {
-            layouts.push({ span: "md:col-span-7", height: "h-[35vh] md:h-[60vh]" });
-            layouts.push({ span: "md:col-span-5", height: "h-[35vh] md:h-[60vh]" });
-            remaining -= 2;
-        } else {
-            layouts.push({ span: "md:col-span-4", height: "h-[30vh] md:h-[50vh]" });
-            layouts.push({ span: "md:col-span-4", height: "h-[30vh] md:h-[50vh]" });
-            layouts.push({ span: "md:col-span-4", height: "h-[30vh] md:h-[50vh]" });
-            remaining -= 3;
-        }
-        processed = layouts.length; 
-    }
-    return layouts;
-  }, [project]);
 
   return (
     <AnimatePresence>
@@ -273,24 +243,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                             <div className="h-[1px] flex-1 bg-current" />
                         </div>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+                        <div className="flex flex-col gap-0">
                             {project.gallery.map((item, index) => {
-                                const layout = layoutConfig[index] || { span: "md:col-span-12", height: "h-[40vh]" };
                                 return (
                                     <Motion.div 
                                       key={`${project.id}-gallery-${index}`} 
                                       initial={{ opacity: 0, y: 30 }} 
                                       whileInView={{ opacity: 1, y: 0 }} 
                                       viewport={{ once: true, margin: "-5%" }} 
-                                      className={`${layout.span} relative group cursor-zoom-in text-left`} 
+                                      className="relative group cursor-zoom-in text-left" 
                                       onClick={() => setLightboxIndex(index)}
                                     >
-                                        <div className={`relative w-full ${layout.height} overflow-hidden bg-navy border border-white/5 rounded-2xl group-hover:border-electric/40 transition-colors duration-500`}>
+                                        <div className="relative w-full h-[42vh] md:h-[88vh] overflow-hidden bg-navy">
                                             {!galleryLoaded[index] && <Skeleton className="absolute inset-0 z-10 rounded-none" />}
                                             {item.type === 'video' ? (
                                                 <ProtectedVideo 
                                                     autoPlay muted loop playsInline 
-                                                    className={`w-full h-full object-cover transition-opacity duration-1000 ${galleryLoaded[index] ? 'opacity-80 group-hover:opacity-100' : 'opacity-0'}`} 
+                                                    className={`w-full h-full object-cover transition-opacity duration-1000 ${galleryLoaded[index] ? 'opacity-100' : 'opacity-0'}`} 
                                                     src={item.url} 
                                                     onLoadedData={() => setGalleryLoaded(prev => ({ ...prev, [index]: true }))}
                                                 />
@@ -298,7 +267,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                                                 <ProtectedImage 
                                                     src={item.url} 
                                                     alt="" 
-                                                    className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 ${galleryLoaded[index] ? 'opacity-80 group-hover:opacity-100' : 'opacity-0'}`} 
+                                                    className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-[1.02] ${galleryLoaded[index] ? 'opacity-100' : 'opacity-0'}`} 
                                                     loading="lazy" 
                                                     onLoad={() => setGalleryLoaded(prev => ({ ...prev, [index]: true }))}
                                                 />

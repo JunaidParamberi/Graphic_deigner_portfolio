@@ -101,9 +101,26 @@ export const Works: React.FC<WorksProps> = ({ projects, onSelectProject }) => {
   const featuredProjects = useMemo(() => {
     return projects
       .filter(p => p.featured)
-      .sort((a, b) => (a.order ?? 999) - (b.order ?? b.id.localeCompare(a.id)));
+      .sort((a, b) => {
+        const aOrder = a.order ?? Number.MAX_SAFE_INTEGER;
+        const bOrder = b.order ?? Number.MAX_SAFE_INTEGER;
+        if (aOrder !== bOrder) return aOrder - bOrder;
+        return a.title.localeCompare(b.title);
+      });
   }, [projects]);
-  
+
+  const getCardLayout = (index: number) => {
+    const pattern = [
+      { span: 'md:col-span-7', height: 'md:min-h-[620px]' },
+      { span: 'md:col-span-5', height: 'md:min-h-[500px]' },
+      { span: 'md:col-span-5', height: 'md:min-h-[500px]' },
+      { span: 'md:col-span-7', height: 'md:min-h-[620px]' },
+      { span: 'md:col-span-7', height: 'md:min-h-[560px]' },
+      { span: 'md:col-span-5', height: 'md:min-h-[460px]' }
+    ];
+    return pattern[index % pattern.length];
+  };
+
   return (
     <section id="works" className="py-32 bg-midnight relative z-10 overflow-hidden">
        <div className="max-w-7xl mx-auto px-4 md:px-10">
@@ -146,17 +163,17 @@ export const Works: React.FC<WorksProps> = ({ projects, onSelectProject }) => {
            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
               <AnimatePresence mode="popLayout">
                 {featuredProjects.map((project, index) => {
-                  const spanClass = project.gridArea || 'md:col-span-6';
-
+                  const cardLayout = getCardLayout(index);
                   return (
                     <Motion.div 
                       key={project.id}
                       layout
-                      className={`${spanClass}`}
+                      className={`${cardLayout.span} h-full`}
                     >
                         <ProjectCard 
                           project={project} 
                           onSelect={onSelectProject} 
+                          className={cardLayout.height}
                           index={index} 
                         />
                     </Motion.div>
